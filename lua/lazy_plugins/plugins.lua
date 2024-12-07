@@ -60,4 +60,9 @@ table.insert(p, {
     }},
     cond = not vim.g.vscode
 })
+table.insert(p, {
+    'wakatime/vim-wakatime',
+    lazy = false,
+    cond = not vim.g.vscode
+})
 return p
