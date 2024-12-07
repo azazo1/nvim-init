@@ -32,6 +32,8 @@
   1. [`nvim-treesitter/nvim-treesitter`](https://github.com/nvim-treesitter/nvim-treesitter)
   2. [`nvim-tree/nvim-tree.lua`](https://github.com/nvim-tree/nvim-tree.lua)
   3. [`folke/which-key.nvim`](https://github.com/folke/which-key.nvim)
+- 额外 lua 脚本:
+  1. windows 下退出 `Insert` 模式时自动切换为英文输入法 (高响应速度).
 
 ## 后续添加方法
 
@@ -40,7 +42,7 @@
   - 在 `...` 处添加插件的表(**table** - lua):
 
     ```lua
-    table.insert(p, ...).
+    table.insert(p, ...)
     ```
 
   - 如果要设置指定插件在 vscode 中禁用, 可以使用两种方法:
@@ -62,7 +64,7 @@
        table.insert({
            "<plugin-name>",
            cond=not vim.g.vscode,
-       });
+       })
        ```
 
   - 如果插件有额外的配置, 记得在 `require("config.lazy")` 之后配置, 然后记得随判断是否在 vscode 之中.
