@@ -3,7 +3,7 @@ table.insert(p, {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-        local configs = require("nvim-treesitter.configs")
+        local configs = require("nvim-treesitter.configs") -- 这里不直接使用 opts 的原因是这里的模块名和插件的模块名不同.
         configs.setup({
             ensure_installed = {"c", "lua", "vim", "vimdoc", "query", "javascript", "html", "markdown",
                                 "markdown_inline", "rust", "python", "cpp", "json", "toml"},
@@ -23,22 +23,20 @@ table.insert(p, {
     version = "*",
     lazy = false,
     dependencies = {"nvim-tree/nvim-web-devicons"},
-    config = function()
-        require("nvim-tree").setup({
-            sort = {
-                sorter = "case_sensitive"
-            },
-            view = {
-                width = 30
-            },
-            renderer = {
-                group_empty = true
-            },
-            filters = {
-                dotfiles = true
-            }
-        })
-    end,
+    opts = { -- 通过 opts 参数直接传递给 `require("nvim-tree").setup`.
+        sort = {
+            sorter = "case_sensitive"
+        },
+        view = {
+            width = 30
+        },
+        renderer = {
+            group_empty = true
+        },
+        filters = {
+            dotfiles = true
+        }
+    },
     cond = not vim.g.vscode
 })
 table.insert(p, {
@@ -68,7 +66,23 @@ table.insert(p, {
     priority = 1000,
     opts = {},
     config = function()
-        vim.cmd [[colorscheme tokyonight-moon]] -- 指定特定的主题.
+        vim.cmd [[colorscheme tokyonight]] -- 指定特定的主题.
     end
+})
+table.insert(p, {
+    'nvim-lualine/lualine.nvim',
+    dependencies = {'nvim-tree/nvim-web-devicons'},
+    opts = {
+        options = {
+            -- theme = 'tokyonight-moon' -- lualine 会自动继承全局的 colorScheme, 这里不写也可以.
+            globalstatus = true -- 始终占据全屏宽度.
+        },
+        sections = {
+            lualine_a = {function()
+                return "\u{e6ae}" -- neovim 的图标, 需要 nerd font.
+            end}
+        }
+    },
+    cond = not vim.g.vscode
 })
 return p

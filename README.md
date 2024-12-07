@@ -33,6 +33,7 @@
   2. [`nvim-tree/nvim-tree.lua`](https://github.com/nvim-tree/nvim-tree.lua)
   3. [`folke/which-key.nvim`](https://github.com/folke/which-key.nvim)
   4. [`folke/tokyonight.nvim`](https://github.com/folke/tokyonight.nvim)
+  5. [`nvim-lualine/lualine.nvim`](https://github.com/nvim-lualine/lualine.nvim)
 - 额外 lua 脚本:
   1. windows 下退出 `Insert` 模式时自动切换为英文输入法 (高响应速度).
 
