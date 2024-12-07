@@ -1,10 +1,9 @@
--- lazy.nvim
-require("config.lazy")
-require("switch_ime.switch")
-require("nvim_tree.nvim_tree")
-
--- 和 lazy.nvim 不能同时开启.
--- require("config.vim-plug") -- 如果要启用这行, 需要先安装 vim-plug, 去官网看.
+-- disable netrw at the very start of your init.lua
+-- netrw 是 vim 和 nvim 内置的文件浏览器, 这里直接禁用, 用 nvim-tree.
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
 
 -- 编码方式 utf8
 vim.g.encoding = "UTF-8"
@@ -81,3 +80,9 @@ vim.o.pumheight = 10
 -- 剪贴板和寄存器绑定
 vim.o.clipboard = "unnamedplus"
 
+-- lazy.nvim
+require("config.lazy")
+require("switch_ime.switch")
+
+-- 和 lazy.nvim 不能同时开启.
+-- require("config.vim-plug") -- 如果要启用这行, 需要先安装 vim-plug, 去官网看.

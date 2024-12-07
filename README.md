@@ -1,6 +1,6 @@
 # neovim 配置文件夹
 
-仅供自用.
+仅供自用, nvim 版本: `v0.10.2`.
 
 ## 放置目录
 
@@ -31,6 +31,7 @@
 - lazy.nvim 及其插件:
   1. [`nvim-treesitter/nvim-treesitter`](https://github.com/nvim-treesitter/nvim-treesitter)
   2. [`nvim-tree/nvim-tree.lua`](https://github.com/nvim-tree/nvim-tree.lua)
+  3. [`folke/which-key.nvim`](https://github.com/folke/which-key.nvim)
 
 ## 后续添加方法
 

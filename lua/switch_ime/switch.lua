@@ -1,7 +1,11 @@
-local ffi = require("ffi")
+-- 自动切换英文, 仅在 Windows 生效.
+if not (vim.fn.has("win32") and vim.fn.has("win64")) then
+    return
+end
 
+local ffi = require("ffi")
 -- 定义需要的 Win32 API 和常量
-ffi.cdef[[
+ffi.cdef [[
 typedef void* HWND;
 typedef long LPARAM;
 typedef unsigned int WPARAM;
@@ -39,13 +43,14 @@ end
 -- locale 对应输入法的键盘布局（如 0x0409 是英文美国）
 -- switch_ime(1033)
 
+-- 退出 Insert 模式的时候切换为英文.
 vim.api.nvim_create_autocmd("InsertLeave", {
     pattern = "*",
     callback = function()
         switch_ime(1033)
     end
 })
-
+-- 进入文件编辑的时候切换为英文.
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "*",
     callback = function()
