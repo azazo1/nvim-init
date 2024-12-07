@@ -24,3 +24,10 @@
   cd /d %USERPROFILE%\AppData\Local\nvim
   git clone https://github.com/azazo1/nvim-init.git .
   ```
+
+## 包含
+
+- 自定义的初始配置.
+- lazy.nvim 及其插件:
+  1. [`nvim-treesitter/nvim-treesitter`](https://github.com/nvim-treesitter/nvim-treesitter)
+  2. [`nvim-tree/nvim-tree.lua`](https://github.com/nvim-tree/nvim-tree.lua)
