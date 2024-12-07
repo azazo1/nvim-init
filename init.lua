@@ -4,7 +4,7 @@ require("switch_ime.switch")
 require("nvim_tree.nvim_tree")
 
 -- 和 lazy.nvim 不能同时开启.
--- require("config.vim-plug")
+-- require("config.vim-plug") -- 如果要启用这行, 需要先安装 vim-plug, 去官网看.
 
 -- 编码方式 utf8
 vim.g.encoding = "UTF-8"
