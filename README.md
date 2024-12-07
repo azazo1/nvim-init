@@ -32,6 +32,7 @@
   1. [`nvim-treesitter/nvim-treesitter`](https://github.com/nvim-treesitter/nvim-treesitter)
   2. [`nvim-tree/nvim-tree.lua`](https://github.com/nvim-tree/nvim-tree.lua)
   3. [`folke/which-key.nvim`](https://github.com/folke/which-key.nvim)
+  4. [`folke/tokyonight.nvim`](https://github.com/folke/tokyonight.nvim)
 - 额外 lua 脚本:
   1. windows 下退出 `Insert` 模式时自动切换为英文输入法 (高响应速度).
 
@@ -68,7 +69,7 @@
        ```
 
   - 如果插件有额外的配置, 记得在 `require("config.lazy")` 之后配置, 然后记得随判断是否在 vscode 之中.
-- 如果要添加一个按键映射(**改键**):
+- 如果要添加一个按键映射 (**which-key**, **改键**):
   - 进入 `lua/which_key/keys.lua` 文件.
   - 添加语句 (其实基本和添加 lazy 插件差不多):
 

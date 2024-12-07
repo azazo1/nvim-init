@@ -49,11 +49,26 @@ table.insert(p, {
         -- see: https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration
         delay = 600 -- 按下按键后显示提示的延迟时间.
     },
-    keys = require("which_key.keys")
+    dependencies = {
+        'echasnovski/mini.nvim',
+        version = '*'
+    },
+    keys = function() -- 延迟加载, 防止有些键位对应插件没有加载到.
+        return require("which_key.keys")
+    end
 })
 table.insert(p, {
     'wakatime/vim-wakatime',
     lazy = false,
     cond = not vim.g.vscode
+})
+table.insert(p, {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+        vim.cmd [[colorscheme tokyonight-moon]] -- 指定特定的主题.
+    end
 })
 return p

@@ -1,8 +1,10 @@
 {
   "lazy.nvim": { "branch": "main", "commit": "ee64abc76be2b237b95d241a924b0323005b868a" },
+  "mini.nvim": { "branch": "main", "commit": "64e95aa77587d04f97a5579b2106a82a08a7d968" },
   "nvim-tree.lua": { "branch": "master", "commit": "375e38673b5c61debd8074ced01cfd4f3b7ce1e9" },
   "nvim-treesitter": { "branch": "master", "commit": "53e20aa728713af5cb4a3e0e2dcfea18975d49fc" },
   "nvim-web-devicons": { "branch": "master", "commit": "87c34abe5d1dc7c1c0a95aaaf888059c614c68ac" },
+  "tokyonight.nvim": { "branch": "main", "commit": "15d83cda572d7498b43bbdaa223bc75bf341183e" },
   "vim-wakatime": { "branch": "master", "commit": "cf51327a9e08935569614d1cb24e779ee9f45519" },
   "which-key.nvim": { "branch": "main", "commit": "9b365a6428a9633e3eeb34dbef1b791511c54f70" }
 }
