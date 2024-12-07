@@ -52,7 +52,8 @@ table.insert(p, {
         version = '*'
     },
     keys = function() -- 延迟加载, 防止有些键位对应插件没有加载到.
-        return require("which_key.keys")
+        require("which_key.keys")
+        return {} -- 懒得摆了, 就放在这把.
     end
 })
 table.insert(p, {
@@ -83,6 +84,24 @@ table.insert(p, {
             end}
         }
     },
+    cond = not vim.g.vscode
+})
+table.insert(p, {
+    'romgrk/barbar.nvim',
+    dependencies = {'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+    'nvim-tree/nvim-web-devicons' -- OPTIONAL: for file icons
+    },
+    init = function()
+        vim.g.barbar_auto_setup = false
+    end,
+    opts = {
+        sidebar_filetypes = {
+            -- nvim-tree 侧边栏打开时自动偏移.
+            -- Use the default values: {event = 'BufWinLeave', text = '', align = 'left'}
+            NvimTree = true
+        }
+    },
+    version = '^1.0.0', -- optional: only update when a new 1.x version is released
     cond = not vim.g.vscode
 })
 return p

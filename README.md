@@ -34,6 +34,7 @@
   3. [`folke/which-key.nvim`](https://github.com/folke/which-key.nvim)
   4. [`folke/tokyonight.nvim`](https://github.com/folke/tokyonight.nvim)
   5. [`nvim-lualine/lualine.nvim`](https://github.com/nvim-lualine/lualine.nvim)
+  6. [`romgrk/barbar.nvim`](https://github.com/romgrk/barbar.nvim)
 - 额外 lua 脚本:
   1. windows 下退出 `Insert` 模式时自动切换为英文输入法 (高响应速度).
 
@@ -72,10 +73,10 @@
   - 如果插件有额外的配置, 记得在 `require("config.lazy")` 之后配置, 然后记得随判断是否在 vscode 之中.
 - 如果要添加一个按键映射 (**which-key**, **改键**):
   - 进入 `lua/which_key/keys.lua` 文件.
-  - 添加语句 (其实基本和添加 lazy 插件差不多):
+  - 添加语句:
 
     ```lua
-    table.insert(k, ...);
+    wk.add({...})
     ```
 
   - 至于 `...` 内填什么, 见: [Mappings](https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-mappings).
