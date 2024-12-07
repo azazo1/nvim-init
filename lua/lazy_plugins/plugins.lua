@@ -26,3 +26,4 @@ table.insert(p, {
         require("nvim-tree").setup {}
     end
 })
+return p
