@@ -43,26 +43,65 @@ if not vim.g.vscode then
         noremap = true,
         group = "[barbar] Buffer",
         icon = string.char(0xf3, 0xb1, 0x80, 0xb2),
-        {
+        { -- 切换到左边的 Buffer.
             "<leader>bh",
             "<Cmd>BufferPrevious<CR>",
             desc = "Previous Buffer",
             icon = string.char(0xf3, 0xb0, 0xad, 0x8b),
             {"<A-,>", "<Cmd>BufferPrevious<CR>"} -- 子按键, 实现同样的功能.
         },
-        {
+        { -- 切换到右边的 Buffer.
             "<leader>bl",
             "<Cmd>BufferNext<CR>",
             desc = "Next Buffer",
             icon = string.char(0xf3, 0xb0, 0x9d, 0x9c),
             {"<A-.>", "<Cmd>BufferNext<CR>"}
         },
-        {
+        { -- 向左移动.
             "<leader>bj",
             "<Cmd>BufferMovePrevious<CR>",
             desc = "Move to Previous Buffer",
             icon = string.char(0xee, 0xaa, 0x9b),
-            {"<A-<>"}
+            {"<A-<>", "<Cmd>BufferMovePrevious<CR>"}
+        },
+        { -- 向右移动.
+            "<leader>bk",
+            "<Cmd>BufferMoveNext<CR>",
+            desc = "Move to Next Buffer",
+            icon = string.char(0xee, 0xaa, 0x9c),
+            {"<A->>", "<Cmd>BufferMoveNext<CR>"}
+        },
+        { -- 关闭当前缓冲区.
+            "<leader>bc",
+            function()
+                if vim.bo.modified then
+                    -- 询问.
+                    local choise = vim.fn.confirm('Buffer modified, sure to close?', '&Yes,\n&No\nor &Write and close',
+                        3)
+                    if choise == 1 then
+                        vim.cmd [[BufferClose!]]
+                    elseif choise == 3 then
+                        -- 先写入文件, 使用代码安静写入.
+                        local bufnr = vim.api.nvim_get_current_buf()
+                        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+                        local filename = vim.api.nvim_buf_get_name(bufnr)
+                        vim.fn.writefile(lines, filename)
+                        vim.bo.modified = false -- 标记已经写入.
+                        -- 关闭缓冲区.
+                        vim.cmd [[BufferClose]]
+                    end
+                else
+                    vim.cmd [[BufferClose]]
+                end
+            end,
+            desc = "Close Buffer",
+            icon = string.char(0xf3, 0xb0, 0x85, 0x99)
+        },
+        { -- 跳转 Buffer.
+            "<leader>bj",
+            "<Cmd>BufferJump<CR>",
+            desc = "Jump to Buffer",
+            icon = string.char()
         }
     }
 end

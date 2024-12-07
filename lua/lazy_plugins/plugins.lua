@@ -45,7 +45,7 @@ table.insert(p, {
     opts = {
         -- your configuration comes here
         -- see: https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration
-        delay = 600 -- 按下按键后显示提示的延迟时间.
+        delay = 1000 -- 按下按键后显示提示的延迟时间.
     },
     dependencies = {
         'echasnovski/mini.nvim',
@@ -104,4 +104,5 @@ table.insert(p, {
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
     cond = not vim.g.vscode
 })
+
 return p
