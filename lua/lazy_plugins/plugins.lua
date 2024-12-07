@@ -46,19 +46,10 @@ table.insert(p, {
     event = "VeryLazy",
     opts = {
         -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
+        -- see: https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration
+        delay = 600 -- 按下按键后显示提示的延迟时间.
     },
-    keys = {{
-        "<leader>?",
-        function()
-            require("which-key").show({
-                global = false
-            })
-        end,
-        desc = "Buffer Local Keymaps (which-key)"
-    }},
-    cond = not vim.g.vscode
+    keys = require("which_key.keys")
 })
 table.insert(p, {
     'wakatime/vim-wakatime',

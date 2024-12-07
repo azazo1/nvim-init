@@ -68,3 +68,12 @@
        ```
 
   - 如果插件有额外的配置, 记得在 `require("config.lazy")` 之后配置, 然后记得随判断是否在 vscode 之中.
+- 如果要添加一个按键映射(**改键**):
+  - 进入 `lua/which_key/keys.lua` 文件.
+  - 添加语句 (其实基本和添加 lazy 插件差不多, 只不过不管是用 `cond` 还是条件语句都可以):
+
+    ```lua
+    table.insert(k, ...);
+    ```
+
+  - 至于 `...` 内填什么, 见: [Mappings](https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-mappings).
