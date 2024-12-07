@@ -2,6 +2,12 @@
 
 仅供自用, nvim 版本: `v0.10.2`.
 
+## 字体
+
+[JetbrainsMonoNerdFont](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip)
+
+- `JetBrainsMonoNLNerdFontMono-Regular.ttf`.
+
 ## 放置目录
 
 - Linux: `~/.config/nvim`.
