@@ -40,7 +40,8 @@
   3. [`folke/which-key.nvim`](https://github.com/folke/which-key.nvim)
   4. [`folke/tokyonight.nvim`](https://github.com/folke/tokyonight.nvim)
   5. [`nvim-lualine/lualine.nvim`](https://github.com/nvim-lualine/lualine.nvim)
-  6. [`romgrk/barbar.nvim`](https://github.com/romgrk/barbar.nvim)
+  6. [`akinsho/bufferline.nvim`](https://github.com/akinsho/bufferline.nvim)
+  <!-- 7. [`tiagovla/scope.nvim`](https://github.com/tiagovla/scope.nvim) -->
 - 额外 lua 脚本:
   1. windows 下退出 `Insert` 模式时自动切换为英文输入法 (高响应速度).
 

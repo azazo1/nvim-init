@@ -80,29 +80,36 @@ table.insert(p, {
         },
         sections = {
             lualine_a = {function()
-                return "\u{e6ae}" -- neovim 的图标, 需要 nerd font.
+                return "" -- neovim 的图标, 需要 nerd font.
             end}
         }
     },
     cond = not vim.g.vscode
 })
 table.insert(p, {
-    'romgrk/barbar.nvim',
-    dependencies = {'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-    'nvim-tree/nvim-web-devicons' -- OPTIONAL: for file icons
-    },
-    init = function()
-        vim.g.barbar_auto_setup = false
-    end,
-    opts = {
-        sidebar_filetypes = {
-            -- nvim-tree 侧边栏打开时自动偏移.
-            -- Use the default values: {event = 'BufWinLeave', text = '', align = 'left'}
-            NvimTree = true
+    'akinsho/bufferline.nvim',
+    config = function()
+        local bufferline = require("bufferline")
+        bufferline.setup {
+            options = {
+                style_preset = bufferline.style_preset.no_italic,
+                -- indicator = {
+                --     style = "underline" -- 效果不好, 下划线会有偏移.
+                -- }
+                numbers = "ordinal", -- 显示序号.
+                offsets = {{ -- 文件树打开自动偏移.
+                    filetype = "NvimTree",
+                    text = "File Explorer",
+                    text_align = "center",
+                    separator = true
+                }},
+                show_buffer_close_icons = false,
+                show_close_icon = false,
+            }
         }
-    },
-    version = '^1.0.0', -- optional: only update when a new 1.x version is released
+    end,
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons',
     cond = not vim.g.vscode
 })
-
 return p

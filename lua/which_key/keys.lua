@@ -9,7 +9,7 @@ wk.add({{
             global = false
         })
     end,
-    desc = "Buffer Local Keymaps (which-key)"
+    desc = "Keymaps Local (which-key)"
 }, {
     "<leader>/",
     function()
@@ -17,61 +17,74 @@ wk.add({{
             global = true
         })
     end,
-    desc = "Global Keymaps",
-    icon = string.char(0xf3, 0xb0, 0x87, 0xa7)
+    desc = "Keymaps Global",
+    icon = ""
 }})
 
-wk.add({
+wk.add({ -- 保存文件.
     "<leader>w",
     "<Cmd>w<CR>",
-    desc = "File Write"
+    desc = "Save File",
+    icon = ""
 })
 
 if not vim.g.vscode then
     -- nvim-tree.lua
     local nvim_tree_api = require("nvim-tree.api")
-    wk.add {
+    wk.add { -- 切换文件侧边栏.
         "<leader>e",
         nvim_tree_api.tree.toggle,
         desc = "Toggle Explorer",
         mode = "n"
     }
-    -- barbar.nvim
-    wk.add {
+    -- bufferline.nvim
+    local bufferline = require("bufferline")
+    wk.add { -- Buffer 操作.
         "<leader>b",
         mode = "n",
-        noremap = true,
-        group = "[barbar] Buffer",
-        icon = string.char(0xf3, 0xb1, 0x80, 0xb2),
-        { -- 切换到左边的 Buffer.
+        group = "BufferLine",
+        icon = "󱔗",
+        { -- 转到左边的 Buffer.
             "<leader>bh",
-            "<Cmd>BufferPrevious<CR>",
-            desc = "Previous Buffer",
-            icon = string.char(0xf3, 0xb0, 0xad, 0x8b),
-            {"<A-,>", "<Cmd>BufferPrevious<CR>"} -- 子按键, 实现同样的功能.
+            "<Cmd>BufferLineCyclePrev<CR>",
+            {"<A-,>", "<Cmd>BufferLineCyclePrev<CR>"},
+            desc = "Buffer on Left",
+            icon = "󰙤"
         },
-        { -- 切换到右边的 Buffer.
+        { -- 转到右边的 Buffer.
             "<leader>bl",
-            "<Cmd>BufferNext<CR>",
-            desc = "Next Buffer",
-            icon = string.char(0xf3, 0xb0, 0x9d, 0x9c),
-            {"<A-.>", "<Cmd>BufferNext<CR>"}
+            "<Cmd>BufferLineCycleNext<CR>",
+            {"<A-.>", "<Cmd>BufferLineCycleNext<CR>"},
+            desc = "Buffer on Right",
+            icon = "󰙢"
         },
-        { -- 向左移动.
+        { -- 当前 Buffer 向左移.
             "<leader>bj",
-            "<Cmd>BufferMovePrevious<CR>",
-            desc = "Move to Previous Buffer",
-            icon = string.char(0xee, 0xaa, 0x9b),
-            {"<A-<>", "<Cmd>BufferMovePrevious<CR>"}
+            "<Cmd>BufferLineMovePrev<CR>",
+            {"<A-<>", "<Cmd>BufferLineMovePrev<CR>"},
+            desc = "Buffer Move Left",
+            icon = ""
         },
-        { -- 向右移动.
+        { -- 当前 Buffer 向右移.
             "<leader>bk",
-            "<Cmd>BufferMoveNext<CR>",
-            desc = "Move to Next Buffer",
-            icon = string.char(0xee, 0xaa, 0x9c),
-            {"<A->>", "<Cmd>BufferMoveNext<CR>"}
+            "<Cmd>BufferLineMoveNext<CR>",
+            {"<A->>", "<Cmd>BufferLineMoveNext<CR>"},
+            desc = "Buffer Move Right",
+            icon = ""
         },
-        { -- 关闭当前缓冲区.
+        { -- 切换标签页固定状态.
+            "<leader>bm",
+            "<Cmd>BufferLineTogglePin<CR>",
+            desc = "Pin Buffer",
+            icon = ""
+        },
+        { -- 快速选中 Buffer.
+            "<leader>bp",
+            "<Cmd>BufferLinePick<CR>",
+            desc = "Pick Buffer",
+            icon = "󰷺"
+        },
+        { -- 关闭 Buffer.
             "<leader>bc",
             function()
                 if vim.bo.modified then
@@ -79,7 +92,7 @@ if not vim.g.vscode then
                     local choise = vim.fn.confirm('Buffer modified, sure to close?', '&Yes,\n&No\nor &Write and close',
                         3)
                     if choise == 1 then
-                        vim.cmd [[BufferClose!]]
+                        bufferline.unpin_and_close()
                     elseif choise == 3 then
                         -- 先写入文件, 使用代码安静写入.
                         local bufnr = vim.api.nvim_get_current_buf()
@@ -88,20 +101,14 @@ if not vim.g.vscode then
                         vim.fn.writefile(lines, filename)
                         vim.bo.modified = false -- 标记已经写入.
                         -- 关闭缓冲区.
-                        vim.cmd [[BufferClose]]
+                        bufferline.unpin_and_close()
                     end
                 else
-                    vim.cmd [[BufferClose]]
+                    bufferline.unpin_and_close()
                 end
             end,
             desc = "Close Buffer",
-            icon = string.char(0xf3, 0xb0, 0x85, 0x99)
-        },
-        { -- 跳转 Buffer.
-            "<leader>bj",
-            "<Cmd>BufferJump<CR>",
-            desc = "Jump to Buffer",
-            icon = string.char()
+            icon = "󰅙"
         }
     }
 end
