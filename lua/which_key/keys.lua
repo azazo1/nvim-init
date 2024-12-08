@@ -51,6 +51,7 @@ if not vim.g.vscode then
 		group = "Move Focus",
 		-- 这里需要确保命令在 normal 模式中执行.
 		-- 所以需要使用 nvim_feedkeys.
+		-- todo 还是不行, insert 模式无法使用这些快捷键.
 		{ -- 向左.
 			"<C-h>",
 			function()
