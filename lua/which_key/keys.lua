@@ -49,55 +49,24 @@ if not vim.g.vscode then
 	wk.add {
 		mode = {"i", "n"},
 		group = "Move Focus",
-		-- 这里需要确保命令在 normal 模式中执行.
-		-- 所以需要使用 nvim_feedkeys.
-		-- todo 还是不行, insert 模式无法使用这些快捷键.
 		{ -- 向左.
 			"<C-h>",
-			function()
-				vim.api.nvim_feedkeys(
-					vim.api.nvim_replace_termcodes(
-						"<C-w>h", true, false, true
-					),
-					'n', true
-				)
-			end,
+			"<Esc><C-w>h",
 			desc = "Move Focus Left",
 		},
 		{ -- 向右.
 			"<C-l>",
-			function()
-				vim.api.nvim_feedkeys(
-					vim.api.nvim_replace_termcodes(
-						"<C-w>l", true, false, true
-					),
-					'n', true
-				)
-			end,
+			"<Esc><C-w>l",
 			desc = "Move Focus Right",
 		},
 		{ -- 向下.
 			"<C-j>",
-			function()
-				vim.api.nvim_feedkeys(
-					vim.api.nvim_replace_termcodes(
-						"<C-w>j", true, false, true
-					),
-					'n', true
-				)
-			end,
+			"<Esc><C-w>j",
 			desc = "Move Focus Down",
 		},
 		{ --向上.
 			"<C-k>",
-			function()
-				vim.api.nvim_feedkeys(
-					vim.api.nvim_replace_termcodes(
-						"<C-w>k", true, false, true
-					),
-					'n', true
-				)
-			end,
+			"<Esc><C-w>k",
 			desc = "Move Focus Up",
 		}
 	}
