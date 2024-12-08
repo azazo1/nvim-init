@@ -112,4 +112,9 @@ table.insert(p, {
     dependencies = 'nvim-tree/nvim-web-devicons',
     cond = not vim.g.vscode
 })
+table.insert(p, {
+    "lewis6991/gitsigns.nvim",
+    opts = {},
+    cond = not vim.g.vscode,
+})
 return p
