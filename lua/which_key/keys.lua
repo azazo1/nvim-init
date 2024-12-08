@@ -177,7 +177,7 @@ if not vim.g.vscode then
                 end,
                 desc = "Close Buffer and Quitting"
             },
-            { -- 关闭所有 Buffer 并退出.
+            { -- 关闭所有 Buffer 并退出, 相当于 <^-w>q 快捷键, 但是有提示功能.
                 "<leader>Q",
                 function()
                     local quit = true
@@ -204,4 +204,54 @@ if not vim.g.vscode then
             mode = {"n", "i"}
         }
     end
+    -- gitsigns.nvim
+    local gitsigns = require("gitsigns")
+    wk.add { -- GitSigns 操作
+        "<leader>h",
+        mode = {"n"},
+        group = "GitSigns",
+        icon = "",
+        { -- 比较当前文件的修改.
+            "<leader>hd",
+            gitsigns.diffthis,
+            desc = "Diff This",
+            icon = ""
+        },
+        { -- 查看 blame.
+            "<leader>hb",
+            gitsigns.blame,
+            desc = "Blame",
+            icon = ""
+        },
+        { -- 查看改动块, 激活两次进入改动快窗口内部进行查看与复制.
+            "<leader>hc",
+            gitsigns.preview_hunk,
+            desc = "Preview Hunk",
+            icon = "󱀂"
+        },
+        { -- 暂存/取消暂存改动块.
+            "<leader>hs",
+            gitsigns.stage_hunk,
+            desc = "Stage Hunk",
+            icon = "󱖫"
+        },
+        { -- 暂存 Buffer.
+            "<leader>hS",
+            gitsigns.stage_buffer,
+            desc = "Stage Buffer",
+            icon = "󰷥",
+        },
+        { -- 取消此改动块的更改.
+            "<leader>hr",
+            gitsigns.reset_hunk,
+            desc = "Reset Hunk",
+            icon = "󰕍"
+        },
+        { -- 取消此 Buffer 中的更改.
+            "<leader>hR",
+            gitsigns.reset_buffer,
+            desc = "Reset Buffer",
+            icon = ""
+        }
+    }
 end
