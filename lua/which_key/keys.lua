@@ -41,12 +41,48 @@ if not vim.g.vscode then
             else
                 nvim_tree_api.tree.open()
             end
+            vim.cmd [[cd]]
         end,
         desc = "Toggle Explorer",
         mode = "n"
     }
+    wk.add { -- 关闭文件侧边栏.
+        "<leader>E",
+        nvim_tree_api.tree.close,
+        desc = "Close Explorer",
+        mode = "n"
+    }
     -- bufferline.nvim
     local bufferline = require("bufferline")
+    local close_buffer_asking = function() -- 关闭当前缓冲区, 并带有响应的询问.
+        if vim.bo.modified then
+            -- 询问.
+            local choise = vim.fn.confirm('Buffer modified, sure to close?', '&Yes,\n&No\nor &Write and close', 3)
+            if choise == 1 then
+                bufferline.unpin_and_close()
+            elseif choise == 3 then
+                -- 先写入文件, 使用代码安静写入.
+                local bufnr = vim.api.nvim_get_current_buf()
+                local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+                local filename = vim.api.nvim_buf_get_name(bufnr)
+                vim.fn.writefile(lines, filename)
+                vim.bo.modified = false -- 标记已经写入.
+                -- 关闭缓冲区.
+                bufferline.unpin_and_close()
+            end
+        else
+            bufferline.unpin_and_close()
+        end
+    end
+    local get_loaded_buffer_count = function() -- 查看当前已加载的缓冲区数量.
+        local count = 0
+        for _, b in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.api.nvim_buf_is_loaded(b) then
+                count = 1 + count
+            end
+        end
+        return count
+    end
     wk.add { -- Buffer 操作.
         "<leader>b",
         mode = "n",
@@ -94,37 +130,32 @@ if not vim.g.vscode then
         },
         { -- 关闭 Buffer.
             "<leader>bc",
-            function()
-                if vim.bo.modified then
-                    -- 询问.
-                    local choise = vim.fn.confirm('Buffer modified, sure to close?', '&Yes,\n&No\nor &Write and close',
-                        3)
-                    if choise == 1 then
-                        bufferline.unpin_and_close()
-                    elseif choise == 3 then
-                        -- 先写入文件, 使用代码安静写入.
-                        local bufnr = vim.api.nvim_get_current_buf()
-                        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-                        local filename = vim.api.nvim_buf_get_name(bufnr)
-                        vim.fn.writefile(lines, filename)
-                        vim.bo.modified = false -- 标记已经写入.
-                        -- 关闭缓冲区.
-                        bufferline.unpin_and_close()
-                    end
-                else
-                    bufferline.unpin_and_close()
-                end
-            end,
+            close_buffer_asking,
             desc = "Close Buffer",
-            icon = "󰅙"
-        },
+            icon = "󰅙",
+            {
+                "<leader>q",
+                function()
+                    if (get_loaded_buffer_count() == 1 -- 只有当前这个缓冲区被加载.
+                    and vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()) == "" -- 当前缓冲区是无名缓冲区.
+                    and not vim.bo.modified -- 当前无名缓冲区没有被修改过.
+                    ) then
+                        vim.cmd [[q]]
+                    else
+                        close_buffer_asking()
+                    end
+                end,
+                desc = "Close Buffer and Quitting"
+            }
+        }
     }
-	for i = 1, 5 do -- 切换到指定序号的 Buffer.
-		wk.add({
-			"<A-" .. i .. ">",
-			"<Cmd>BufferLineGoToBuffer " .. i .. "<CR>",
-			desc = "Go to Buffer " .. i,
-			icon = "󰴍"
-		})
-	end
+    for i = 1, 5 do -- 切换到指定序号的 Buffer.
+        wk.add {
+            "<A-" .. i .. ">",
+            "<Cmd>BufferLineGoToBuffer " .. i .. "<CR>",
+            desc = "Go to Buffer " .. i,
+            icon = "󰴍",
+            mode = {"n", "i"}
+        }
+    end
 end
