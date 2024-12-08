@@ -28,7 +28,41 @@ wk.add({ -- 保存文件.
     icon = ""
 })
 
+wk.add { -- 撤销操作.
+	"<^-Z>",
+	"<Cmd>u<CR>",
+	desc = "Undo",
+	icon = "",
+}
+
+
+
 if not vim.g.vscode then
+	-- 窗口焦点移动.
+	wk.add {
+		mode = {"i", "n"},
+		group = "Move Focus",
+		{ -- 向左.
+			"<C-h>",
+			"<C-w>h",
+			desc = "Move Focus Left",
+		},
+		{ -- 向右.
+			"<C-l>",
+			"<C-w>l",
+			desc = "Move Focus Right",
+		},
+		{ -- 向下.
+			"<C-j>",
+			"<C-w>j",
+			desc = "Move Focus Down",
+		},
+		{ --向上.
+			"<C-k>",
+			"<C-W>k",
+			desc = "Move Focus Up",
+		}
+	}
     -- nvim-tree.lua
     local nvim_tree_api = require("nvim-tree.api")
     wk.add { -- 切换文件侧边栏.
@@ -50,7 +84,8 @@ if not vim.g.vscode then
         "<leader>E",
         nvim_tree_api.tree.close,
         desc = "Close Explorer",
-        mode = "n"
+        mode = "n",
+		icon = "󰅙"
     }
     -- bufferline.nvim
     local bufferline = require("bufferline")
@@ -229,6 +264,18 @@ if not vim.g.vscode then
             desc = "Preview Hunk",
             icon = "󱀂"
         },
+		{ -- 跳转到上一个改动块.
+			"<leader>hp",
+			gitsigns.prev_hunk,
+			desc = "Go to Previous Hunk",
+			icon = ""
+		},
+		{ -- 跳转到下一个改动块.
+			"<leader>hn",
+			gitsigns.next_hunk,
+			desc = "Go to Next Hunk",
+			icon = ""
+		},
         { -- 暂存/取消暂存改动块.
             "<leader>hs",
             gitsigns.stage_hunk,
@@ -254,4 +301,40 @@ if not vim.g.vscode then
             icon = ""
         }
     }
+	-- telescope.nvim
+	local telescope_builtin = require("telescope.builtin")
+	wk.add { -- Telescope 操作.
+		"<leader>f",
+		mode = "n",
+		group = "Telescope",
+		icon = "",
+		{ -- Telescope 界面.
+			"<leader>ft",
+			"<Cmd>Telescope<CR>",
+			desc = "Open Telescope Window",
+			icon = "",
+		},
+		{ -- 查找文件.
+			"<leader>ff",
+			"<Cmd>Telescope find_files<CR>",
+			desc = "Telescope Find Files",
+			icon = "󰈞",
+		},
+		{ -- 实时查找内容.
+			"<leader>fg",
+			"<Cmd>Telescope live_grep<CR>",
+			desc = "Telescope Live Grep",
+			icon = "",
+		},
+		{ -- 实时查找光标下的内容.
+			"<leader>fc",
+			function()
+				telescope_builtin.grep_string({
+					use_regex = true
+				})
+			end,
+			desc = "Grep Cursor Word",
+			icon = "󰗧",
+		}
+	}
 end

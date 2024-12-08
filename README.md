@@ -1,6 +1,6 @@
 # neovim 配置文件夹
 
-仅供自用, nvim 版本: `v0.10.2`.
+仅供自用, [nvim](https://github.com/neovim/neovim/blob/master/INSTALL.md) 版本: `v0.10.2`.
 
 ## 字体
 
@@ -8,12 +8,12 @@
 
 - `JetBrainsMonoNLNerdFontMono-Regular.ttf`.
 
-## 放置目录
+## NeoVim 配置目录
 
 - Linux: `~/.config/nvim`.
 - Windows: `$env:USERPROFILE/appdata/local/nvim` 或 `%USERPROFILE%/appdata/local/nvim`.
 
-## 直接执行
+## 配置操作
 
 - Linux:
 
@@ -31,6 +31,10 @@
   git clone https://github.com/azazo1/nvim-init.git .
   ```
 
+另外还需要准备 [`ripgrep`](https://github.com/BurntSushi/ripgrep)
+和 [`fd`](https://github.com/sharkdp/fd) 的可执行文件以供
+[`telescope.nvim`](https://github.com/nvim-telescope/telescope.nvim) 使用.
+
 ## 包含
 
 - 自定义的初始配置.
@@ -41,6 +45,7 @@
   4. [`folke/tokyonight.nvim`](https://github.com/folke/tokyonight.nvim)
   5. [`nvim-lualine/lualine.nvim`](https://github.com/nvim-lualine/lualine.nvim)
   6. [`akinsho/bufferline.nvim`](https://github.com/akinsho/bufferline.nvim)
+  7. [`nvim-telescope/telescope.nvim`](https://github.com/nvim-telescope/telescope.nvim)
 - 额外 lua 脚本:
   1. windows 下退出 `Insert` 模式时自动切换为英文输入法 (高响应速度).
   2. 一些键位: [`keys.lua`](lua/which_key/keys.lua).

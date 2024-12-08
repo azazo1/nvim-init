@@ -122,4 +122,20 @@ table.insert(p, {
     opts = {},
     cond = not vim.g.vscode,
 })
+table.insert(p, {
+	'nvim-telescope/telescope.nvim', tag = '0.1.8',
+	dependencies = {
+		'nvim-lua/plenary.nvim', -- required.
+		'nvim-treesitter/nvim-treesitter',
+		'nvim-tree/nvim-web-devicons',
+		-- 下面这两个不是放在这,
+		-- 而是要下载这个仓库的可执行文件,
+		-- 放到环境目录中.
+		-- 'BurntSushi/ripgrep',
+		-- 'sharkdp/fd'
+	},
+	opts = {
+
+	}
+})
 return p
