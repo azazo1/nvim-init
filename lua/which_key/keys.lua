@@ -33,7 +33,15 @@ if not vim.g.vscode then
     local nvim_tree_api = require("nvim-tree.api")
     wk.add { -- 切换文件侧边栏.
         "<leader>e",
-        nvim_tree_api.tree.toggle,
+        function()
+            if nvim_tree_api.tree.is_visible({
+                any_tabpage = true
+            }) and nvim_tree_api.tree.is_tree_buf() then
+                nvim_tree_api.tree.close()
+            else
+                nvim_tree_api.tree.open()
+            end
+        end,
         desc = "Toggle Explorer",
         mode = "n"
     }
