@@ -33,60 +33,113 @@ wk.add { -- 撤销操作.
 	"<Cmd>u<CR>",
 	desc = "Undo",
 	icon = "",
+	mode = "n",
 }
 
-
+wk.add { -- 显示当前文件信息.
+	"<leader>i",
+	"<Cmd>file<CR>",
+	mode = "n",
+	desc = "Show File Info",
+	icon = "",
+}
 
 if not vim.g.vscode then
 	-- 窗口焦点移动.
 	wk.add {
 		mode = {"i", "n"},
 		group = "Move Focus",
+		-- 这里需要确保命令在 normal 模式中执行.
+		-- 所以需要使用 nvim_feedkeys.
 		{ -- 向左.
 			"<C-h>",
-			"<C-w>h",
+			function()
+				vim.api.nvim_feedkeys(
+					vim.api.nvim_replace_termcodes(
+						"<C-w>h", true, false, true
+					),
+					'n', true
+				)
+			end,
 			desc = "Move Focus Left",
 		},
 		{ -- 向右.
 			"<C-l>",
-			"<C-w>l",
+			function()
+				vim.api.nvim_feedkeys(
+					vim.api.nvim_replace_termcodes(
+						"<C-w>l", true, false, true
+					),
+					'n', true
+				)
+			end,
 			desc = "Move Focus Right",
 		},
 		{ -- 向下.
 			"<C-j>",
-			"<C-w>j",
+			function()
+				vim.api.nvim_feedkeys(
+					vim.api.nvim_replace_termcodes(
+						"<C-w>j", true, false, true
+					),
+					'n', true
+				)
+			end,
 			desc = "Move Focus Down",
 		},
 		{ --向上.
 			"<C-k>",
-			"<C-W>k",
+			function()
+				vim.api.nvim_feedkeys(
+					vim.api.nvim_replace_termcodes(
+						"<C-w>k", true, false, true
+					),
+					'n', true
+				)
+			end,
 			desc = "Move Focus Up",
 		}
 	}
     -- nvim-tree.lua
     local nvim_tree_api = require("nvim-tree.api")
-    wk.add { -- 切换文件侧边栏.
-        "<leader>e",
-        function()
-            if nvim_tree_api.tree.is_visible({
-                any_tabpage = true
-            }) and nvim_tree_api.tree.is_tree_buf() then
-                nvim_tree_api.tree.close()
-            else
-                nvim_tree_api.tree.open()
-            end
-            vim.cmd [[cd]]
-        end,
-        desc = "Toggle Explorer",
-        mode = "n"
-    }
-    wk.add { -- 关闭文件侧边栏.
-        "<leader>E",
-        nvim_tree_api.tree.close,
-        desc = "Close Explorer",
-        mode = "n",
-		icon = "󰅙"
-    }
+	local toggle_quit_on_open = function()
+		local config = require('nvim-tree').config
+		config.actions.open_file.quit_on_open = not config.actions.open_file.quit_on_open
+		require('nvim-tree').setup(config)
+		if config.actions.open_file.quit_on_open then
+			vim.print("nvim-tree will quit_on_open")
+		else
+			vim.print("nvim-tree will not quit_on_open")
+		end
+	end
+	local toggle_explorer = function()
+		-- 如果焦点不在文件树且文件树打开, 那么先不关闭, 先聚焦.
+		if nvim_tree_api.tree.is_visible({
+			any_tabpage = true
+		}) and nvim_tree_api.tree.is_tree_buf() then
+			nvim_tree_api.tree.close()
+		else
+			nvim_tree_api.tree.open()
+		end
+		vim.cmd [[cd]] -- 输出当前路径
+	end
+    wk.add { -- 文件树键位.
+		"<leader>e",
+		mode = "n",
+		group = "Explorer",
+		icon = "󱏒",
+		{ -- 切换文件侧边栏打开与关闭.
+			"<leader>ee",
+			toggle_explorer,
+			desc = "Toggle Explorer",
+			{"<A-e>", toggle_explorer}
+		},
+		{ -- 切换: 文件树在打开文件后自动关闭.
+			"<leader>eE",
+			toggle_quit_on_open,
+			desc = "Toggle Quit on Open",
+		}
+	}
     -- bufferline.nvim
     local bufferline = require("bufferline")
     local close_buffer_asking = function(buf)
@@ -105,7 +158,7 @@ if not vim.g.vscode then
                 vim.api.nvim_set_option_value('modified', false, {
                     buf = buf
                 })
-                bufferline.unpin_and_close(buf)
+                pcall(bufferline.unpin_and_close, buf)
             elseif choise == 3 then
                 -- 先写入文件, 使用代码安静写入.
                 local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
@@ -114,22 +167,20 @@ if not vim.g.vscode then
                     buf = buf
                 }) -- 标记已经写入.
                 -- 关闭缓冲区.
-                bufferline.unpin_and_close(buf)
+                pcall(bufferline.unpin_and_close, buf)
             else
                 return false
             end
         else -- 缓冲区没有修改.
-            bufferline.unpin_and_close(buf)
+            pcall(bufferline.unpin_and_close, buf)
         end
         return true
     end
-    local get_valid_buffers = function()
-        -- 获取当前有效的缓冲区.
+    local get_expected_buffers = function()
+        -- 获取当前打开的缓冲区, 会跳过文件树 Buffer 界面.
         local t = {}
-        for _, b in ipairs(vim.api.nvim_list_bufs()) do
-            if vim.api.nvim_buf_is_valid(b) then
-                table.insert(t, b)
-            end
+        for _, e in ipairs(bufferline.get_elements().elements) do
+			table.insert(t, e.id)
         end
         return t
     end
@@ -202,28 +253,41 @@ if not vim.g.vscode then
             { -- 关闭当前 Buffer 并尝试退出.
                 "<leader>q",
                 function()
-                    if (vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()) == "" -- 当前缓冲区是无名缓冲区.
-                    and not vim.bo.modified -- 当前无名缓冲区没有被修改过.
+                    if (
+						#get_expected_buffers() == 1 -- 只有一个有效且被加载的 buffer.
+						and vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()) == "" -- 当前缓冲区是无名缓冲区.
+						and not vim.bo.modified -- 当前无名缓冲区没有被修改过.
                     ) then
-                        vim.cmd [[q]]
+						vim.api.nvim_feedkeys(
+							vim.api.nvim_replace_termcodes("<Cmd>q<CR>", true, false, true),
+							'n', true
+						)
                     else
                         close_buffer_asking()
                     end
                 end,
                 desc = "Close Buffer and Quitting"
             },
-            { -- 关闭所有 Buffer 并退出, 相当于 <^-w>q 快捷键, 但是有提示功能.
+            { -- 关闭所有 Buffer 并退出 NeoVim, 如果有文件没有被修改, 则显示提示.
                 "<leader>Q",
                 function()
                     local quit = true
-                    for _, b in ipairs(get_valid_buffers()) do
+                    for _, b in ipairs(get_expected_buffers()) do
                         if not close_buffer_asking(b) then
                             quit = false -- 有一个取消就中断.
                             break
                         end
                     end
                     if quit then
-                        vim.cmd [[q]]
+						vim.api.nvim_feedkeys(
+							vim.api.nvim_replace_termcodes("<Cmd>qa!<CR>",
+								true, -- 是否启动键映射.
+								false, -- 是否在模式中等待.
+								true -- 是否支持特殊按键, 比如 <C-w>.
+							),
+							'n', -- 模式 (normal).
+							true -- 是否立刻执行.
+						)
                     end
                 end,
                 desc = "Close All Buffer and Quitting"
@@ -246,9 +310,11 @@ if not vim.g.vscode then
         mode = {"n"},
         group = "GitSigns",
         icon = "",
-        { -- 比较当前文件的修改.
+        { -- 比较当前文件的修改 (与上一次 commit 比较).
             "<leader>hd",
-            gitsigns.diffthis,
+            function()
+				gitsigns.diffthis('~1')
+			end,
             desc = "Diff This",
             icon = ""
         },
@@ -259,20 +325,28 @@ if not vim.g.vscode then
             icon = ""
         },
         { -- 查看改动块, 激活两次进入改动快窗口内部进行查看与复制.
-            "<leader>hc",
-            gitsigns.preview_hunk,
+            "<leader>hp",
+			gitsigns.preview_hunk,
             desc = "Preview Hunk",
             icon = "󱀂"
         },
 		{ -- 跳转到上一个改动块.
-			"<leader>hp",
-			gitsigns.prev_hunk,
+			"<leader>hk",
+			function()
+				gitsigns.nav_hunk('prev',
+					{preview = true, target='all', wrap=true}
+				)
+			end,
 			desc = "Go to Previous Hunk",
 			icon = ""
 		},
 		{ -- 跳转到下一个改动块.
-			"<leader>hn",
-			gitsigns.next_hunk,
+			"<leader>hj",
+			function()
+				gitsigns.nav_hunk('next',
+					{preview = true, target='all', wrap=true}
+				)
+			end,
 			desc = "Go to Next Hunk",
 			icon = ""
 		},

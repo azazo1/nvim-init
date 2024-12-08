@@ -1,5 +1,5 @@
 -- 自动切换英文, 仅在 Windows 生效.
-if not (vim.fn.has("win32") and vim.fn.has("win64")) then
+if not (vim.fn.has("win32") or vim.fn.has("win64")) then
     return
 end
 
