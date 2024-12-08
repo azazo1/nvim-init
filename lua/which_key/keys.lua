@@ -117,6 +117,14 @@ if not vim.g.vscode then
             end,
             desc = "Close Buffer",
             icon = "󰅙"
-        }
+        },
     }
+	for i = 1, 5 do -- 切换到指定序号的 Buffer.
+		wk.add({
+			"<A-" .. i .. ">",
+			"<Cmd>BufferLineGoToBuffer " .. i .. "<CR>",
+			desc = "Go to Buffer " .. i,
+			icon = "󰴍"
+		})
+	end
 end
