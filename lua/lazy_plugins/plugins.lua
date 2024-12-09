@@ -136,7 +136,26 @@ table.insert(p, {
     },
     config = function()
         local telescope = require('telescope')
-        telescope.setup({})
+        local actions = require("telescope.actions")
+        telescope.setup({
+            pickers = {
+                live_grep = {
+                    theme = "ivy" -- 以底部栏的形式出现.
+                }
+            },
+            defaults = {
+                cache_picker = { -- 保存的 picker 数量.
+                    num_pickers = 2,
+                },
+                mappings = {
+                    i = {
+                        -- 切换搜索历史.
+                        ['<A-p>'] = actions.cycle_history_prev,
+                        ['<A-n>'] = actions.cycle_history_next
+                    }
+                }
+            }
+        })
         telescope.load_extension("scope")
     end,
     cond = not vim.g.vscode
