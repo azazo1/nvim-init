@@ -135,7 +135,9 @@ table.insert(p, {
     -- 'sharkdp/fd'
     },
     config = function()
-        require("telescope").load_extension("scope")
+        local telescope = require('telescope')
+        telescope.setup({})
+        telescope.load_extension("scope")
     end,
     cond = not vim.g.vscode
 })
