@@ -65,6 +65,12 @@ if not vim.g.vscode then
             "<Cmd>Telescope jumplist<CR>",
             desc = "Jumplist",
             icon = "󰽒"
+        },
+        { -- 和 scope.nvim 联动, 搜索所有 tabs 中打开的 Buffer.
+            "<leader>fb",
+            "<Cmd>Telescope scope buffers<CR>",
+            desc = "Search All Buffers",
+            icon = "󰓩"
         }
     }
 end
