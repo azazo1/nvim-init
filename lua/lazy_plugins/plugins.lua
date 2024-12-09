@@ -132,7 +132,8 @@ table.insert(p, {
     -- 'BurntSushi/ripgrep',
     -- 'sharkdp/fd'
     },
-    opts = {}
+    opts = {},
+    cond = not vim.g.vscode
 })
 table.insert(p, {
     "NeogitOrg/neogit",
@@ -149,11 +150,12 @@ table.insert(p, {
         -- normal mode.
         disable_insert_on_commit = true,
         -- "ascii"   is the graph the git CLI generates
-        -- "unicode" is the graph like https://github.com/rbong/vim-flog
-        -- "kitty"   is the graph like https://github.com/isakbm/gitgraph.nvim - use https://github.com/rbong/flog-symbols if you don't use Kitty
-        graph_style = "kitty",
-        -- Change the default way of opening neogit
+        -- "unicode" is the graph like https://github.com/rbong/vim-flog, 也就是说要装一个字体.
+        -- "kitty"   is the graph like https://github.com/isakbm/gitgraph.nvim - use https://github.com/rbong/flog-symbols if you don't use Kitty, 也就是说要安装一个 Kitty 终端.
+        graph_style = "ascii",
+        -- Change the default way of opening neogit, floating is not implemented.
         kind = "tab"
-    }
+    },
+    cond = not vim.g.vscode
 })
 return p

@@ -9,7 +9,7 @@ wk.add({{
             global = false
         })
     end,
-    desc = "Keymaps Local (which-key)"
+    desc = "Keymaps Local"
 }, {
     "<leader>/",
     function()
@@ -27,14 +27,6 @@ wk.add({ -- 保存文件.
     desc = "Save File",
     icon = ""
 })
-
-wk.add { -- 撤销操作.
-    "<^-Z>",
-    "<Cmd>u<CR>",
-    desc = "Undo",
-    icon = "",
-    mode = "n",
-}
 
 wk.add { -- 显示当前文件信息.
     "<leader>i",
