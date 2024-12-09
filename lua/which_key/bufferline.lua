@@ -20,12 +20,12 @@ if not vim.g.vscode then
                 })
                 pcall(bufferline.unpin_and_close, buf)
             elseif choise == 3 then
-                -- 先写入文件, 使用代码安静写入.
-                local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-                vim.fn.writefile(lines, filename)
-                vim.api.nvim_set_option_value('modified', false, {
-                    buf = buf
-                }) -- 标记已经写入.
+                -- 先安静写入文件, 如果报错了再提醒.
+                local status, result = pcall(vim.cmd, [[silent w]])
+                if not status then
+                    vim.notify(result, vim.log.levels.ERROR)
+                    return false -- 如果写入失败, 直接返回没有执行关闭操作.
+                end
                 -- 关闭缓冲区.
                 pcall(bufferline.unpin_and_close, buf)
             else
