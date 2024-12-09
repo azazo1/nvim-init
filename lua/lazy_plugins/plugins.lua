@@ -109,7 +109,7 @@ table.insert(p, {
                     separator = true
                 }},
                 show_buffer_close_icons = false,
-                show_close_icon = false,
+                show_close_icon = false
             }
         }
     end,
@@ -120,22 +120,40 @@ table.insert(p, {
 table.insert(p, {
     "lewis6991/gitsigns.nvim",
     opts = {},
-    cond = not vim.g.vscode,
+    cond = not vim.g.vscode
 })
 table.insert(p, {
-	'nvim-telescope/telescope.nvim', tag = '0.1.8',
-	dependencies = {
-		'nvim-lua/plenary.nvim', -- required.
-		'nvim-treesitter/nvim-treesitter',
-		'nvim-tree/nvim-web-devicons',
-		-- 下面这两个不是放在这,
-		-- 而是要下载这个仓库的可执行文件,
-		-- 放到环境目录中.
-		-- 'BurntSushi/ripgrep',
-		-- 'sharkdp/fd'
-	},
-	opts = {
-
-	}
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.8',
+    dependencies = {'nvim-lua/plenary.nvim', -- required.
+    'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' -- 下面这两个不是放在这,
+    -- 而是要下载这个仓库的可执行文件,
+    -- 放到环境目录中.
+    -- 'BurntSushi/ripgrep',
+    -- 'sharkdp/fd'
+    },
+    opts = {}
+})
+table.insert(p, {
+    "NeogitOrg/neogit",
+    dependencies = {"nvim-lua/plenary.nvim", -- required
+    "sindrets/diffview.nvim", -- optional - Diff integration
+    -- Only one of these is needed.
+    "nvim-telescope/telescope.nvim" -- optional
+    -- "ibhagwan/fzf-lua", -- optional
+    -- "echasnovski/mini.pick" -- optional
+    },
+    opts = {
+        -- Changes what mode the Commit Editor starts in. `true` will leave nvim in normal mode, `false` will change nvim to
+        -- insert mode, and `"auto"` will change nvim to insert mode IF the commit message is empty, otherwise leaving it in
+        -- normal mode.
+        disable_insert_on_commit = true,
+        -- "ascii"   is the graph the git CLI generates
+        -- "unicode" is the graph like https://github.com/rbong/vim-flog
+        -- "kitty"   is the graph like https://github.com/isakbm/gitgraph.nvim - use https://github.com/rbong/flog-symbols if you don't use Kitty
+        graph_style = "kitty",
+        -- Change the default way of opening neogit
+        kind = "tab"
+    }
 })
 return p
