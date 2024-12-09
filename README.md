@@ -2,18 +2,42 @@
 
 仅供自用, [nvim](https://github.com/neovim/neovim/blob/master/INSTALL.md) 版本: `v0.10.2`.
 
-## 字体
-
-[JetbrainsMonoNerdFont](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip)
-
-- `JetBrainsMonoNLNerdFontMono-Regular.ttf`.
-
 ## NeoVim 配置目录
 
 - Linux: `~/.config/nvim`.
 - Windows: `$env:USERPROFILE/appdata/local/nvim` 或 `%USERPROFILE%/appdata/local/nvim`.
 
 ## 配置操作
+
+### 安装字体
+
+[JetbrainsMonoNerdFont](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip)
+
+- 使用的字体是 `JetBrainsMonoNLNerdFontMono-Regular.ttf`.
+
+**字体安装方法**:
+
+- [Termux 安装字体](https://blog.chaitanyashahare.com/posts/nerd-font-termux/)
+
+  ```bash
+  # 替换清华镜像
+  sed -i 's@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/apt/termux-main stable main@' $PREFIX/etc/apt/sources.list
+  apt update && apt upgrade
+  # 安装字体
+  pkg install wget
+  cd ~
+  wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip
+  unzip JetBrainsMono.zip JetBrainsMonoNLNerdFontMono-Regular.ttf
+  mv JetBrainsMonoNLNerdFontMono-Regular.ttf ~/.termux/font.ttf
+  termux-reload-settings
+  ```
+
+- Windows 安装字体(_win11_):
+  - 先在 Windows 中下载字体文件 (见上面), 然后右键为所有用户安装.
+  - Windows Terminal 安装字体, 右键 Terminal 的标题栏,
+    然后配置指定 shell 的外观, 指定 `JetBrainsMonoNLNerdFontMono-Regular` 字体.
+
+### 放置配置文件
 
 - Linux:
 
@@ -33,7 +57,8 @@
 
 另外还需要准备 [`ripgrep`](https://github.com/BurntSushi/ripgrep)
 和 [`fd`](https://github.com/sharkdp/fd) 的可执行文件以供
-[`telescope.nvim`](https://github.com/nvim-telescope/telescope.nvim) 使用.
+[`telescope.nvim`](https://github.com/nvim-telescope/telescope.nvim) 使用,
+放在 PATH 变量的路径中即可.
 
 ## 包含
 
