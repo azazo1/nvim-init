@@ -1,5 +1,5 @@
 local p = {}
-table.insert(p, {
+table.insert(p, { -- 语法高亮.
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
@@ -18,7 +18,7 @@ table.insert(p, {
     end,
     cond = not vim.g.vscode
 })
-table.insert(p, {
+table.insert(p, { -- 文件树.
     "nvim-tree/nvim-tree.lua",
     version = "*",
     lazy = false,
@@ -46,7 +46,7 @@ table.insert(p, {
     },
     cond = not vim.g.vscode
 })
-table.insert(p, {
+table.insert(p, { -- 键位设置与显示.
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
@@ -63,12 +63,12 @@ table.insert(p, {
         return {} -- 懒得摆了, 就放在这把.
     end
 })
-table.insert(p, {
+table.insert(p, { -- 计时器.
     'wakatime/vim-wakatime',
     lazy = false,
     cond = not vim.g.vscode
 })
-table.insert(p, {
+table.insert(p, { -- 主题.
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
@@ -77,7 +77,7 @@ table.insert(p, {
         vim.cmd [[colorscheme tokyonight]] -- 指定特定的主题.
     end
 })
-table.insert(p, {
+table.insert(p, { -- 底部状态栏.
     'nvim-lualine/lualine.nvim',
     dependencies = {'nvim-tree/nvim-web-devicons'},
     opts = {
@@ -93,7 +93,7 @@ table.insert(p, {
     },
     cond = not vim.g.vscode
 })
-table.insert(p, {
+table.insert(p, { -- 顶部 Buffer 栏.
     'akinsho/bufferline.nvim',
     config = function()
         local bufferline = require("bufferline")
@@ -119,12 +119,12 @@ table.insert(p, {
     dependencies = 'nvim-tree/nvim-web-devicons',
     cond = not vim.g.vscode
 })
-table.insert(p, {
+table.insert(p, { -- Buffer 内 git 变化查看.
     "lewis6991/gitsigns.nvim",
     opts = {},
     cond = not vim.g.vscode
 })
-table.insert(p, {
+table.insert(p, { -- 各种查找.
     'nvim-telescope/telescope.nvim',
     tag = '0.1.8',
     dependencies = {'nvim-lua/plenary.nvim', -- required.
@@ -160,7 +160,7 @@ table.insert(p, {
     end,
     cond = not vim.g.vscode
 })
-table.insert(p, {
+table.insert(p, { -- git 操作窗口.
     "NeogitOrg/neogit",
     dependencies = {"nvim-lua/plenary.nvim", -- required
     "sindrets/diffview.nvim", -- optional - Diff integration
@@ -183,12 +183,12 @@ table.insert(p, {
     },
     cond = not vim.g.vscode
 })
-table.insert(p, {
+table.insert(p, { -- 标签页 (tabs) 隔离 Buffer.
     "tiagovla/scope.nvim",
     opts = {},
     cond = not vim.g.vscode
 })
-table.insert(p, {
+table.insert(p, { -- 丝滑滚动.
     "karb94/neoscroll.nvim",
     opts = {
         duration_multiplier = 0.05, -- Global duration multiplier
