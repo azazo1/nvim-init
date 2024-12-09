@@ -145,7 +145,7 @@ table.insert(p, {
             },
             defaults = {
                 cache_picker = { -- 保存的 picker 数量.
-                    num_pickers = 2,
+                    num_pickers = 2
                 },
                 mappings = {
                     i = {
@@ -187,5 +187,13 @@ table.insert(p, {
     "tiagovla/scope.nvim",
     opts = {},
     cond = not vim.g.vscode
+})
+table.insert(p, {
+    "karb94/neoscroll.nvim",
+    opts = {
+        duration_multiplier = 0.05, -- Global duration multiplier
+        easing = "quadratic"
+    },
+    cond = not vim.g.vscode -- vscode 测试过了, 用不了.
 })
 return p
