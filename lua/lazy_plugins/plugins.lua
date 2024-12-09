@@ -35,6 +35,8 @@ table.insert(p, {
         },
         actions = {
             open_file = {
+                -- 虽然回车和 o 键打开文件会让文件树关闭,
+                -- 但是可以使用 tab 打开文件, 这样文件树就不会关闭了.
                 quit_on_open = true
             }
         },
@@ -149,8 +151,8 @@ table.insert(p, {
         -- insert mode, and `"auto"` will change nvim to insert mode IF the commit message is empty, otherwise leaving it in
         -- normal mode.
         disable_insert_on_commit = true,
-        -- "ascii"   is the graph the git CLI generates
-        -- "unicode" is the graph like https://github.com/rbong/vim-flog, 也就是说要装一个字体.
+        -- "ascii"   is the graph the git CLI generates, 这个也能显示不同的 branch 的情况, 只不过方正一点.
+        -- "unicode" is the graph like https://github.com/rbong/vim-flog, 也就是说要装一个字体, 没什么必要, 也就是好看一点.
         -- "kitty"   is the graph like https://github.com/isakbm/gitgraph.nvim - use https://github.com/rbong/flog-symbols if you don't use Kitty, 也就是说要安装一个 Kitty 终端.
         graph_style = "ascii",
         -- Change the default way of opening neogit, floating is not implemented.
