@@ -134,7 +134,9 @@ table.insert(p, {
     -- 'BurntSushi/ripgrep',
     -- 'sharkdp/fd'
     },
-    opts = {},
+    config = function()
+        require("telescope").load_extension("scope")
+    end,
     cond = not vim.g.vscode
 })
 table.insert(p, {
@@ -158,6 +160,11 @@ table.insert(p, {
         -- Change the default way of opening neogit, floating is not implemented.
         kind = "tab"
     },
+    cond = not vim.g.vscode
+})
+table.insert(p, {
+    "tiagovla/scope.nvim",
+    opts = {},
     cond = not vim.g.vscode
 })
 return p
