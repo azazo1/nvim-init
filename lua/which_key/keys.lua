@@ -36,6 +36,21 @@ wk.add { -- 显示当前文件信息.
     icon = ""
 }
 
+wk.add { -- 一键编辑 init.lua 配置文件.
+    "<leader>C",
+    function()
+        local path = ""
+        if vim.fn.has("win32") or vim.fn.has("win64") then
+            path = "~/AppData/Local/nvim/init.lua"
+        else
+            path = "~/.config/nvim/init.lua"
+        end
+        vim.cmd("edit " .. path)
+    end,
+    desc = "Edit Configuration File",
+    icon = ""
+}
+
 if not vim.g.vscode then
     -- 窗口焦点移动.
     wk.add {
