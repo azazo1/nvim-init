@@ -41,7 +41,7 @@ table.insert(p, { -- 文件树.
             }
         },
         filters = {
-            dotfiles = true
+            dotfiles = false
         }
     },
     cond = not vim.g.vscode

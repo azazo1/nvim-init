@@ -167,3 +167,4 @@
    - 解决方法: 此配置在 Windows 中被加载的时候会自动修改 `%TEMP%` 环境变量为 `nvim-data/temp` 目录.
      - 后续测试: 解决方法无效故取消此方法.
 2. neogit 在 linux 下面无法 commit.
+3. nvim-tree 在 linux 下无法定位到当前文件(键位失效).
