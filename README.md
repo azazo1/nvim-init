@@ -126,3 +126,7 @@
 ## bug
 
 不知道为什么 Windows 下, 包括 `nvim-tree` 在内的许多功能都会变得卡顿.
+
+- 初步判断可能是 `git.exe` 扫描 Windows `%TEMP%` 目录导致卡顿.
+- 解决方法: 此配置在 Windows 中被加载的时候会自动修改 `%TEMP%` 环境变量为 `nvim-data/temp` 目录.
+  - 后续测试: 解决方法无效故取消此方法.

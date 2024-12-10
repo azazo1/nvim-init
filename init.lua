@@ -76,6 +76,15 @@ vim.o.shortmess = vim.o.shortmess .. "c"
 vim.o.pumheight = 10
 -- 剪贴板和寄存器绑定
 vim.o.clipboard = "unnamedplus"
+-- 修改 %TEMP% 目录, 防止 git.exe 扫描 %TEMP% 目录导致卡顿, 暂时只在 windows 中发现卡顿问题.
+-- 后续测试: 没用.
+-- if vim.fn.has('win32') ~= 0 then
+--     local data_path = vim.fn.stdpath('data')
+--     local new_temp = data_path .. "/temp"
+--     vim.fn.mkdir(new_temp, "p")
+--     vim.env.TEMP = new_temp
+--     vim.env.TMP = new_temp
+-- end
 -- lazy.nvim
 require("config.lazy")
 require("switch_ime.switch")
