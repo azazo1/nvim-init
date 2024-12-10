@@ -1,5 +1,5 @@
--- 自动切换英文, 仅在 Windows 生效.
-if not (vim.fn.has("win32") or vim.fn.has("win64")) then
+-- 自动切换英文, 仅在 Windows 生效, lua 中 0 也是 true.
+if vim.fn.has('win32') == 0 then
     return
 end
 

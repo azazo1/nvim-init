@@ -40,7 +40,7 @@ wk.add { -- 一键编辑 init.lua 配置文件.
     "<leader>C",
     function()
         local path = ""
-        if vim.fn.has("win32") or vim.fn.has("win64") then
+        if vim.fn.has("win32") ~= 0 then
             path = "~/AppData/Local/nvim/init.lua"
         else
             path = "~/.config/nvim/init.lua"
