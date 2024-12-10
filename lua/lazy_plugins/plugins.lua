@@ -206,4 +206,11 @@ table.insert(p, { -- 粘性行.
     opts = {},
     cond = not vim.g.vscode
 })
+function table_expand(t1, t2)
+    -- 将 t2 内容放到 t1 后面, 仅限数组类型的表.
+    for _, v in ipairs(t2) do
+        table.insert(t1, v)
+    end
+end
+table_expand(p, require("lazy_plugins.lsp_related"))
 return p

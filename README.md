@@ -76,6 +76,10 @@
   10. [`karb94/neoscroll.nvim`](https://github.com/karb94/neoscroll.nvim)
   11. [`dstein64/nvim-scrollview`](https://github.com/dstein64/nvim-scrollview)
   12. [`nvim-treesitter/nvim-treesitter-context`](https://github.com/nvim-treesitter/nvim-treesitter-context)
+  13. [`williamboman/mason.nvim`](https://github.com/williamboman/mason.nvim)
+  14. [`neovim/nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig)
+  15. [`williamboman/mason-lspconfig.nvim`](https://github.com/williamboman/mason-lspconfig.nvim)
+  16. [`hrsh7th/nvim-cmp`](https://github.com/hrsh7th/nvim-cmp)
 - 额外 lua 脚本:
   1. windows 下退出 `Insert` 模式时自动切换为英文输入法 (高响应速度).
   2. 一些键位: [`keys.lua`](lua/which_key/keys.lua).
