@@ -2,7 +2,7 @@
 local p = {}
 table.insert(p, {
     "williamboman/mason.nvim",
-    config = not vim.g.vscode
+	cond = not vim.g.vscode
 })
 table.insert(p, {
     "neovim/nvim-lspconfig",
@@ -148,5 +148,6 @@ table.insert(p, {
 	config = function()
 		require('lsp-status').register_progress()
 	end,
+	cond = not vim.g.vscode
 })
 return p

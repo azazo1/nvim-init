@@ -234,6 +234,7 @@ table.insert(p, { -- 自动保存.
 			end
 			return false -- can't save
 		end,
-	}
+	},
+	cond = not vim.g.vscode,
 })
 return p

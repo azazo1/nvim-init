@@ -9,6 +9,8 @@
 
 ## 配置操作
 
+安装字体然后运行后面的命令.
+
 ### 安装字体
 
 [JetbrainsMonoNerdFont](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip)
@@ -18,6 +20,8 @@
 **字体安装方法**:
 
 - [Termux 安装字体](https://blog.chaitanyashahare.com/posts/nerd-font-termux/)
+
+  可以创建一个 `.sh` 文件, 放入如下内容, 执行脚本.
 
   ```bash
   # 替换清华镜像
@@ -29,6 +33,11 @@
   wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip
   unzip JetBrainsMono.zip JetBrainsMonoNLNerdFontMono-Regular.ttf
   mv JetBrainsMonoNLNerdFontMono-Regular.ttf ~/.termux/font.ttf
+  ```
+
+  然后这句需要单独在 **Termux** 交互界面中执行:
+
+  ```bash
   termux-reload-settings
   ```
 
@@ -39,15 +48,38 @@
 
 ### 放置配置文件
 
-- Linux:
+- Termux:
+  Termux 先进入 Ubuntu 系统, 然后按照 Linux 部分继续.
 
   ```bash
+  pkg install proot-distro
+  proot-distro install ubuntu
+  # 创建 ubuntu 别名.
+  echo "#" >> ~/.bashrc # 防止 .bashrc 为空.
+  sed -i "$ a alias ubuntu=\"proot-distro login ubuntu\"" ~/.bashrc
+  echo "\"~/.bashrc\" modified, source it then use \"ubuntu\" to open ubuntu operation system."
+  ```
+
+- Linux(Ubutu):
+
+  ```bash
+  # 安装 nvim.
+  curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+  sudo rm -rf /opt/nvim
+  sudo tar -C /opt -xzf nvim-linux64.tar.gz  
+  sed -i "$ a export PATH=\$PATH:/opt/nvim-linux64/bin" ~/.bashrc
+  echo "~/.bashrc modified, run \"source ~/.bashrc\" to take effect."
+  source ~/.bashrc
+  # 放置配置文件.
   mkdir -p ~/.config/nvim
   cd ~/.config/nvim
   git clone https://github.com/azazo1/nvim-init.git .
+  # 安装 ripgrep.
+  sudo apt install ripgrep
   ```
 
 - Windows:
+  先去 neovim 的官网下载 neovim _v0.10+_ 版本, 然后运行以下命令.
 
   ```bat
   mkdir %USERPROFILE%\AppData\Local\nvim
@@ -130,8 +162,8 @@
 
 ## bug
 
-不知道为什么 Windows 下, 包括 `nvim-tree` 在内的许多功能都会变得卡顿.
-
-- 初步判断可能是 `git.exe` 扫描 Windows `%TEMP%` 目录导致卡顿.
-- 解决方法: 此配置在 Windows 中被加载的时候会自动修改 `%TEMP%` 环境变量为 `nvim-data/temp` 目录.
-  - 后续测试: 解决方法无效故取消此方法.
+1. 不知道为什么 Windows 下, 包括 `nvim-tree` 在内的许多功能都会变得卡顿.
+   - 初步判断可能是 `git.exe` 扫描 Windows `%TEMP%` 目录导致卡顿.
+   - 解决方法: 此配置在 Windows 中被加载的时候会自动修改 `%TEMP%` 环境变量为 `nvim-data/temp` 目录.
+     - 后续测试: 解决方法无效故取消此方法.
+2. neogit 在 linux 下面无法 commit.
