@@ -52,7 +52,8 @@ if not vim.g.vscode then
                 -- 使用 vim.ui.input
                 vim.ui.input({
                     prompt = "Path to Open: ",
-                    default = vim.fn.expand("%:p:h")
+                    default = vim.fn.expand("%:p:h"),
+                    completion = "file"
                 }, function(user_input)
                     if user_input then
                         -- 如果用户没有取消.
