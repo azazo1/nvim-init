@@ -88,6 +88,7 @@ table.insert(p, { -- 自动补全相关设置
     config = function()
         local cmp = require("cmp")
         cmp.setup {
+			-- todo: 不知道怎么让其只匹配光标之前的内容, 比如 >python import o<cursor>sdf 提示 os.
 			formatting = {
 				fields = { "kind", "abbr", "menu" },
 				format = function(entry, vim_item)
@@ -105,9 +106,10 @@ table.insert(p, { -- 自动补全相关设置
                 { name = 'nvim_lsp' }, -- 自动补全 lsp 提供的内容.
                 { name = "path" }, -- 自动补全路径.
                 -- { name = "vsnip" }, -- snippets, https://github.com/hrsh7th/vim-vsnip
-                { name = "buffer" },
-				{ name = "cmdline" },
-            }),
+				{ name = "cmdline" }, -- 命令行自动补全
+            }, {
+				{ name = "buffer" }
+			}),
             mapping = cmp.mapping.preset.insert({
                 -- ['<C-Space>'] = cmp.mapping.complete(), -- 实际上没有必要, <C-n> 和 <C-p> 就能直接唤出.
                 ['<C-c>'] = cmp.mapping.abort(), -- 关闭当前出现的补全

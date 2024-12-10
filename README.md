@@ -80,6 +80,7 @@
   14. [`neovim/nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig)
   15. [`williamboman/mason-lspconfig.nvim`](https://github.com/williamboman/mason-lspconfig.nvim)
   16. [`hrsh7th/nvim-cmp`](https://github.com/hrsh7th/nvim-cmp)
+  17. [`Pocco81/auto-save.nvim`](https://github.com/Pocco81/auto-save.nvim)
 - 额外 lua 脚本:
   1. windows 下退出 `Insert` 模式时自动切换为英文输入法 (高响应速度).
   2. 一些键位: [`keys.lua`](lua/which_key/keys.lua).
