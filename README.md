@@ -75,6 +75,7 @@
   9. [`tiagovla/scope.nvim`](https://github.com/tiagovla/scope.nvim)
   10. [`karb94/neoscroll.nvim`](https://github.com/karb94/neoscroll.nvim)
   11. [`dstein64/nvim-scrollview`](https://github.com/dstein64/nvim-scrollview)
+  12. [`nvim-treesitter/nvim-treesitter-context`](https://github.com/nvim-treesitter/nvim-treesitter-context)
 - 额外 lua 脚本:
   1. windows 下退出 `Insert` 模式时自动切换为英文输入法 (高响应速度).
   2. 一些键位: [`keys.lua`](lua/which_key/keys.lua).

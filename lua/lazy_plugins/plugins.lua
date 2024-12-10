@@ -201,4 +201,9 @@ table.insert(p, { -- 滚动进度条.
     opts = {},
     cond = not vim.g.vscode
 })
+table.insert(p, { -- 粘性行.
+    'nvim-treesitter/nvim-treesitter-context',
+    opts = {},
+    cond = not vim.g.vscode
+})
 return p
