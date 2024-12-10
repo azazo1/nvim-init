@@ -122,3 +122,7 @@
     ```
 
   - 至于 `...` 内填什么, 见: [Mappings](https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-mappings).
+
+## bug
+
+不知道为什么 Windows 下, 包括 `nvim-tree` 在内的许多功能都会变得卡顿.
