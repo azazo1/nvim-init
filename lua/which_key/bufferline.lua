@@ -136,8 +136,9 @@ if not vim.g.vscode then
                         end
                     end
                     if quit then
-                        vim.api.nvim_feedkeys(vim.api
-                                                  .nvim_replace_termcodes("<Cmd>qa!<CR>", true, -- 是否启动键映射.
+                        vim.api.nvim_feedkeys(
+                            -- 这里在使用了 scope.nvim 的时候无法成功关闭所有 buffers, 故不用 qa!, 懒得处理了, 直接提示.
+                            vim.api.nvim_replace_termcodes("<Cmd>qa<CR>", true, -- 是否启动键映射.
                             false, -- 是否在模式中等待.
                             true -- 是否支持特殊按键, 比如 <C-w>.
                         ), 'n', -- 模式 (normal).
