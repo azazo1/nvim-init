@@ -196,4 +196,9 @@ table.insert(p, { -- 丝滑滚动.
     },
     cond = not vim.g.vscode -- vscode 测试过了, 用不了.
 })
+table.insert(p, { -- 滚动进度条.
+    'dstein64/nvim-scrollview',
+    opts = {},
+    cond = not vim.g.vscode
+})
 return p
