@@ -112,7 +112,7 @@ table.insert(p, { -- 自动补全相关设置
 			}),
             mapping = cmp.mapping.preset.insert({
                 -- ['<C-Space>'] = cmp.mapping.complete(), -- 实际上没有必要, <C-n> 和 <C-p> 就能直接唤出.
-                ['<C-c>'] = cmp.mapping.abort(), -- 关闭当前出现的补全
+                ['<C-e>'] = cmp.mapping.abort(), -- 关闭当前出现的补全
                 ['<CR>'] = cmp.mapping.confirm({ select = true }), -- 确认补全, Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 ['<Tab>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
             }),
@@ -142,5 +142,11 @@ table.insert(p, { -- 自动补全相关设置
 		})
     end,
     cond = not vim.g.vscode
+})
+table.insert(p, {
+	"nvim-lua/lsp-status.nvim",
+	config = function()
+		require('lsp-status').register_progress()
+	end,
 })
 return p

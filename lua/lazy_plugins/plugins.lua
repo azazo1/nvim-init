@@ -88,7 +88,9 @@ table.insert(p, { -- 底部状态栏.
         sections = {
             lualine_a = {function()
                 return "" -- neovim 的图标, 需要 nerd font.
-            end}
+            end},
+			lualine_x = {'encoding', 'fileformat', 'filetype', 'require"lsp-status".status()'}
+
         }
     },
     cond = not vim.g.vscode
@@ -213,11 +215,25 @@ local function table_expand(t1, t2)
     end
 end
 table_expand(p, require("lazy_plugins.lsp_related"))
+local function file_exists(path)
+  local stat = vim.loop.fs_stat(path)
+  return stat and stat.type == "file"
+end
 table.insert(p, { -- 自动保存.
 	"Pocco81/auto-save.nvim",
 	opts = {
 		debounce_delay = 1000, -- saves the file at most every `debounce_delay` milliseconds
 		trigger_events = {"InsertLeave", "TextChanged"}, -- vim events that trigger auto-save. See :h events
+		condition = function(buf)
+			local fn = vim.fn
+			local utils = require("auto-save.utils.data")
+			if fn.getbufvar(buf, "&modifiable") == 1 and
+				utils.not_in(fn.getbufvar(buf, "&filetype"), {}) and
+				file_exists(vim.api.nvim_buf_get_name(buf)) then
+				return true -- met condition(s), can save
+			end
+			return false -- can't save
+		end,
 	}
 })
 return p
