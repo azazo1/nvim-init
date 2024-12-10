@@ -174,4 +174,4 @@
      git config --global author.email "xxx"
      ```
 
-3. nvim-tree 在 linux 下无法定位到当前文件(键位失效).
+3. nvim-tree 在 linux 下无法定位到当前文件(键位失效), 偶尔出现.
