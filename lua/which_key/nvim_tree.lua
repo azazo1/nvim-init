@@ -24,7 +24,7 @@ if not vim.g.vscode then
             desc = "Toggle Explorer",
             {"<A-e>", toggle_explorer}
         },
-        { -- 在当前 Buffer 的目录中打开文件树.
+        { -- 打开文件树并聚焦到当前 Buffer 位置.
             "<leader>eE",
             function()
                 local path = vim.api.nvim_buf_get_name(0)
