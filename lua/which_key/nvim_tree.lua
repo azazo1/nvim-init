@@ -50,19 +50,19 @@ if not vim.g.vscode then
             "<leader>er",
             function()
                 -- 使用 vim.ui.input
-                local path = vim.ui.input({
+                vim.ui.input({
                     prompt = "Path to Open: ",
                     default = vim.fn.expand("%:p:h")
                 }, function(user_input)
                     if user_input then
                         -- 如果用户没有取消.
                         local state, result = pcall(nvim_tree_api.tree.open, {
-                            path = path
+                            path = user_input
                         })
                         if not state then
                             vim.notify(result, vim.log.levels.ERROR)
                         else
-                            vim.print(path)
+                            vim.print(user_input)
                         end
                     end
                 end)
