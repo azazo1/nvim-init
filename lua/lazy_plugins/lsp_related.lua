@@ -48,6 +48,35 @@ table.insert(p, {
     end,
     cond = not vim.g.vscode
 })
+
+local kind_icons = {
+	Text = "󰉿",
+	Method = "󰆧",
+	Function = "󰊕",
+	Constructor = "",
+	Field = "󰜢",
+	Variable = "󰀫",
+	Class = "󰠱",
+	Interface = "",
+	Module = "",
+	Property = "󰜢",
+	Unit = "󰑭",
+	Value = "󰎠",
+	Enum = "",
+	Keyword = "󰌋",
+	Snippet = "",
+	Color = "󰏘",
+	File = "󰈙",
+	Reference = "󰈇",
+	Folder = "󰉋",
+	EnumMember = "",
+	Constant = "󰏿",
+	Struct = "󰙅",
+	Event = "",
+	Operator = "󰆕",
+	TypeParameter = "",
+}
+
 table.insert(p, { -- 自动补全相关设置
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -59,6 +88,19 @@ table.insert(p, { -- 自动补全相关设置
     config = function()
         local cmp = require("cmp")
         cmp.setup {
+			formatting = {
+				fields = { "kind", "abbr", "menu" },
+				format = function(entry, vim_item)
+					vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+					vim_item.menu = ({
+						nvim_lsp = "[LSP]",
+						buffer = "[Buffer]",
+						spell = "[Spell]",
+						path = "[Path]"
+					})[entry.source.name]
+					return vim_item
+				end,
+			},
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' }, -- 自动补全 lsp 提供的内容.
                 { name = "path" }, -- 自动补全路径.
