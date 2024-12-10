@@ -76,8 +76,20 @@ vim.o.shortmess = vim.o.shortmess .. "c"
 vim.o.pumheight = 10
 -- 剪贴板和寄存器绑定
 vim.o.clipboard = "unnamedplus"
+-- 高亮 yank.
+if not vim.g.vscode then
+    -- 实测 vscode-neovim 会报错.
+    vim.api.nvim_create_autocmd("TextYankPost", {
+        callback = function()
+            vim.highlight.on_yank({
+                higroup = "Visual",
+                timeout = 500
+            })
+        end
+    })
+end
 -- 修改 %TEMP% 目录, 防止 git.exe 扫描 %TEMP% 目录导致卡顿, 暂时只在 windows 中发现卡顿问题.
--- 后续测试: 没用.
+-- 后续测试: 没用, 而且清除了 %TEMP% 文件夹也还是卡, 但是真的是与 git 集成的插件相关的操作卡.
 -- if vim.fn.has('win32') ~= 0 then
 --     local data_path = vim.fn.stdpath('data')
 --     local new_temp = data_path .. "/temp"
