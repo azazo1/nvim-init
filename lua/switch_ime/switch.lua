@@ -57,3 +57,10 @@ vim.api.nvim_create_autocmd("FileType", {
         switch_ime(1033)
     end
 })
+-- 终端获取焦点的时候自动切换英文.
+vim.api.nvim_create_autocmd("VimEnter", {
+	pattern = "*",
+	callback = function()
+		switch_ime(1033)
+	end,
+})
