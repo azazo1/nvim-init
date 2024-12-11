@@ -176,7 +176,7 @@ table.insert(p, {
 	version = "v2.3.0", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
 	-- install jsregexp (optional!).
 	-- 如果是 Windows 用户, 需要自行修改 git 里的 sh 位置!!
-	build = vim.fn.has("win32") and [[
+	build = vim.fn.has("win32") ~= 0 and [[
 		make install_jsregexp CC=gcc.exe SHELL="C:/Program Files/Git/bin/sh.exe" .SHELLFLAGS=-c
 	]] or [[make install_jsregexp]],
 	dependencies = { "rafamadriz/friendly-snippets" },
