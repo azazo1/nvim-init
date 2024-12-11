@@ -92,8 +92,18 @@ table.insert(p, { -- 自动补全相关设置
 		'hrsh7th/cmp-nvim-lua'
     },
     config = function()
-        local cmp = require("cmp")
-        cmp.setup {
+		local cmp = require("cmp")
+		cmp.setup {
+			snippet = {
+				-- REQUIRED - you must specify a snippet engine
+				expand = function(args)
+					-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+					require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+					-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+					-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+					-- vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+				end,
+			},
 			-- todo: 不知道怎么让其只匹配光标之前的内容, 比如 >python import o<cursor>sdf 提示 os.
 			formatting = {
 				fields = { "kind", "abbr", "menu" },
@@ -113,7 +123,11 @@ table.insert(p, { -- 自动补全相关设置
                 { name = 'nvim_lsp' }, -- 自动补全 lsp 提供的内容.
                 { name = "path" }, -- 自动补全路径.
                 -- { name = "vsnip" }, -- snippets, https://github.com/hrsh7th/vim-vsnip
-				{ name = "cmdline" }, -- 命令行自动补全
+				{ name = "cmdline" }, -- 命令行自动补全.
+				-- { name = 'vsnip' }, -- For vsnip users.
+				{ name = 'luasnip' }, -- For luasnip users.
+				-- { name = 'ultisnips' }, -- For ultisnips users.
+				-- { name = 'snippy' }, -- For snippy users.
             }, {
 				{ name = "buffer" }
 			}),
@@ -128,7 +142,7 @@ table.insert(p, { -- 自动补全相关设置
 				documentation = cmp.config.window.bordered(),
 			},
 			experimental = { -- 代码提示在光标之后的虚拟文字.
-				ghost_text = true
+				ghost_text = false -- 和 snippets 一起用的时候表现很奇怪, 不用了.
 			}
         }
 		local opts = {
@@ -137,8 +151,7 @@ table.insert(p, { -- 自动补全相关设置
 				{ name = "buffer" }
 			}
 		}
-		cmp.setup.cmdline('?', opts)
-		cmp.setup.cmdline('/', opts)
+		cmp.setup.cmdline({'?', '/'}, opts)
 		cmp.setup.cmdline(':', {
 			mapping = cmp.mapping.preset.cmdline(), -- 同上.
 			sources = cmp.config.sources({
@@ -156,5 +169,19 @@ table.insert(p, {
 		require('lsp-status').register_progress()
 	end,
 	cond = not vim.g.vscode
+})
+table.insert(p, {
+	"L3MON4D3/LuaSnip",
+	-- follow latest release.
+	version = "v2.3.0", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+	-- install jsregexp (optional!).
+	-- 如果是 Windows 用户, 需要自行修改 git 里的 sh 位置!!
+	build = vim.fn.has("win32") and [[
+		make install_jsregexp CC=gcc.exe SHELL="C:/Program Files/Git/bin/sh.exe" .SHELLFLAGS=-c
+	]] or [[make install_jsregexp]],
+	dependencies = { "rafamadriz/friendly-snippets" },
+	config = function ()
+		require("luasnip.loaders.from_vscode").lazy_load()
+	end
 })
 return p

@@ -92,6 +92,11 @@
 [`telescope.nvim`](https://github.com/nvim-telescope/telescope.nvim) 使用,
 放在 PATH 变量的路径中即可.
 
+> [!WARNING]
+> Windows 下还需要安装 MinGW64 中的编译工具链,
+> `Git for windows` 安装在 `C:/Program Files/Git` 目录,
+> 或者手动修改 `lua/lazy_plugins/lsp_related.lua` 中的 git/sh 位置.
+
 ## 包含
 
 - 自定义的初始配置.
