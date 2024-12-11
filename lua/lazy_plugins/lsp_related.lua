@@ -24,7 +24,10 @@ table.insert(p, {
             -- and will be called for each installed server that doesn't have
             -- a dedicated handler.
             function(server_name) -- default handler (optional), 默认 LSP 配置设置.
-                require("lspconfig")[server_name].setup {}
+				local capabilities = require('cmp_nvim_lsp').default_capabilities()
+                require("lspconfig")[server_name].setup {
+					capabilities = capabilities,
+				}
             end,
             -- Next, you can provide a dedicated handler for specific servers.
             -- For example, a handler override for the `rust_analyzer`:
@@ -34,6 +37,7 @@ table.insert(p, {
 			-- 下面是自定义 LSP 配置的设置.
             ["lua_ls"] = function()
                 local lspconfig = require("lspconfig")
+				local capabilities = require('cmp_nvim_lsp').default_capabilities()
                 lspconfig.lua_ls.setup {
                     settings = {
                         Lua = {
@@ -41,7 +45,8 @@ table.insert(p, {
                                 globals = {"vim"}
                             }
                         }
-                    }
+                    },
+					capabilities = capabilities
                 }
             end
         }
@@ -114,7 +119,7 @@ table.insert(p, { -- 自动补全相关设置
                 -- ['<C-Space>'] = cmp.mapping.complete(), -- 实际上没有必要, <C-n> 和 <C-p> 就能直接唤出.
                 ['<C-e>'] = cmp.mapping.abort(), -- 关闭当前出现的补全
                 ['<CR>'] = cmp.mapping.confirm({ select = true }), -- 确认补全, Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-                ['<Tab>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+                -- ['<Tab>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }), -- 影响缩进, 不用了.
             }),
 			window = { -- 代码提示的窗口带边框.
 				completion = cmp.config.window.bordered(),
