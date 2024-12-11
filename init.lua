@@ -1,5 +1,5 @@
 -- disable netrw at the very start of your init.lua
--- netrw 是 vim 和 nvim 内置的文件浏览器, 这里直接禁用, 用 nvim-tree.
+-- netrw 是 vim 和 nvim 内置的文件浏览器, 这里直接禁用, 用 neo-tree.
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 -- 编码方式 utf8
