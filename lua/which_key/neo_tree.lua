@@ -18,7 +18,17 @@ if not vim.g.vscode then
 		}, { -- 在指定目录中打开文件树.
 			"<leader>er",
 			function()
-				error("Not implemented")
+                -- 使用 vim.ui.input
+                vim.ui.input({
+                    prompt = "Path to Open: ",
+                    default = vim.fn.expand("%:p:h"),
+                    completion = "file"
+                }, function(user_input)
+                    if user_input then
+                        -- 如果用户没有取消.
+						vim.cmd('Neotree dir=' .. user_input)
+					end
+                end)
 			end,
 			desc = "Open at Specific Path",
 		}
