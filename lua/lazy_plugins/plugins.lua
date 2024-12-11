@@ -46,16 +46,30 @@ table.insert(p, { -- 文件树.
     },
     cond = not vim.g.vscode and nil
 })
-table.insert(p, {
+table.insert(p, { -- 新版文件树.
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
-      "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+	  -- 下面这个需要 luaroscks, 还需要在环境目录中又 lua 5.1, 暂时不用了.
+      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     },
-	cond = not vim.g.vscode
+	cond = not vim.g.vscode,
+	opts = {
+		close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
+        popup_border_style = "rounded",
+        enable_git_status = true,
+        enable_diagnostics = true,
+		window = {
+			mappings = {
+				['w'] = 'none', -- 取消使用 window-picker 打开的快捷键.
+				['q'] = 'none', -- 取消使用 q 键退出.
+				["/"] = "none", -- 取消模糊搜索.
+			}
+		},
+	}
 })
 table.insert(p, { -- 键位设置与显示.
     "folke/which-key.nvim",

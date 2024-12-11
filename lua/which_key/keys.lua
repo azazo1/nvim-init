@@ -78,7 +78,7 @@ if not vim.g.vscode then
         }
     }
 end
-require("which_key.nvim_tree")
+require("which_key.neo_tree")
 require("which_key.bufferline")
 require("which_key.gitsigns")
 require("which_key.telescope")

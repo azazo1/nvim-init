@@ -1,4 +1,4 @@
-if not vim.g.vscode then
+if not vim.g.vscode and nil then -- 改用 neo-tree.
     -- nvim-tree.lua
     local nvim_tree_api = require("nvim-tree.api")
     local wk = require("which-key")

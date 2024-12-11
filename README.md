@@ -97,7 +97,7 @@
 - 自定义的初始配置.
 - lazy.nvim 及其插件:
   1. [`nvim-treesitter/nvim-treesitter`](https://github.com/nvim-treesitter/nvim-treesitter)
-  2. [`nvim-tree/nvim-tree.lua`](https://github.com/nvim-tree/nvim-tree.lua)
+  2. [`nvim-tree/nvim-tree.lua`](https://github.com/nvim-tree/nvim-tree.lua) (已弃用)
   3. [`folke/which-key.nvim`](https://github.com/folke/which-key.nvim)
   4. [`folke/tokyonight.nvim`](https://github.com/folke/tokyonight.nvim)
   5. [`nvim-lualine/lualine.nvim`](https://github.com/nvim-lualine/lualine.nvim)
@@ -113,6 +113,7 @@
   15. [`williamboman/mason-lspconfig.nvim`](https://github.com/williamboman/mason-lspconfig.nvim)
   16. [`hrsh7th/nvim-cmp`](https://github.com/hrsh7th/nvim-cmp)
   17. [`Pocco81/auto-save.nvim`](https://github.com/Pocco81/auto-save.nvim)
+  18. [`nvim-neo-tree/neo-tree.nvim`](https://github.com/nvim-neo-tree/neo-tree.nvim)
 - 额外 lua 脚本:
   1. windows 下退出 `Insert` 模式时自动切换为英文输入法 (高响应速度).
   2. 一些键位: [`keys.lua`](lua/which_key/keys.lua).
