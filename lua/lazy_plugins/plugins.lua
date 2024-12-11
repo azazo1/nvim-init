@@ -18,34 +18,6 @@ table.insert(p, { -- 语法高亮.
     end,
     cond = not vim.g.vscode
 })
-table.insert(p, { -- 文件树.
-    "nvim-tree/nvim-tree.lua",
-    version = "*",
-    lazy = false,
-    dependencies = {"nvim-tree/nvim-web-devicons"},
-    opts = { -- 通过 opts 参数直接传递给 `require("nvim-tree").setup`.
-        sort = {
-            sorter = "case_sensitive"
-        },
-        view = {
-            width = 30
-        },
-        renderer = {
-            group_empty = true
-        },
-        actions = {
-            open_file = {
-                -- 虽然回车和 o 键打开文件会让文件树关闭,
-                -- 但是可以使用 tab 打开文件, 这样文件树就不会关闭了.
-                quit_on_open = true
-            }
-        },
-        filters = {
-            dotfiles = false
-        }
-    },
-    cond = not vim.g.vscode and nil
-})
 table.insert(p, { -- 新版文件树.
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
@@ -132,14 +104,16 @@ table.insert(p, { -- 顶部 Buffer 栏.
                 -- }
                 numbers = "ordinal", -- 显示序号.
                 offsets = {{ -- 文件树打开自动偏移.
-                    filetype = "NvimTree",
+                    filetype = "neo-tree",
                     text = "File Explorer",
                     text_align = "center",
                     separator = true
                 }},
                 show_buffer_close_icons = false,
-                show_close_icon = false
-            }
+                show_close_icon = false,
+				diagnostics = "nvim_lsp",
+				separator_style = "slant" -- buffer 的标签页: 梯形.
+			}
         }
     end,
     version = "*",
