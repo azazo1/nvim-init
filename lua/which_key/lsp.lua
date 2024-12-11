@@ -12,11 +12,6 @@ if not vim.g.vscode then
 			desc = "Format",
 		},
 		{
-			"<leader>ah",
-			vim.lsp.buf.completion,
-			desc = "Completion",
-		},
-		{
 			"<leader>ad",
 			vim.lsp.buf.definition,
 			desc = "Definition",
@@ -30,6 +25,16 @@ if not vim.g.vscode then
 			"<leader>ab",
 			vim.lsp.buf.references,
 			desc = "References",
+		},
+		{
+			"<leader>aa",
+			vim.lsp.buf.code_action,
+			desc = "Code Action"
+		},
+		{
+			"<leader>aR{",
+			"<Cmd>LspReStart<CR>",
+			desc = "LSP Restart"
 		}
 	}
 end

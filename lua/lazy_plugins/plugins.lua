@@ -44,7 +44,18 @@ table.insert(p, { -- 文件树.
             dotfiles = false
         }
     },
-    cond = not vim.g.vscode
+    cond = not vim.g.vscode and nil
+})
+table.insert(p, {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    },
+	cond = not vim.g.vscode
 })
 table.insert(p, { -- 键位设置与显示.
     "folke/which-key.nvim",

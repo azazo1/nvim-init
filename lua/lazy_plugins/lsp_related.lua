@@ -15,7 +15,7 @@ table.insert(p, {
         require("mason").setup()
         require("mason-lspconfig").setup {
             ensure_installed = { -- 确保要安装的 LSP.
-				"lua_ls", "pyright", "rust_analyzer"
+				"lua_ls", "pyright", "rust_analyzer", "texlab"
 			},
             automatic_installation = true
         }
@@ -88,7 +88,8 @@ table.insert(p, { -- 自动补全相关设置
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
-		'hrsh7th/cmp-cmdline'
+		'hrsh7th/cmp-cmdline',
+		'hrsh7th/cmp-nvim-lua'
     },
     config = function()
         local cmp = require("cmp")
@@ -108,6 +109,7 @@ table.insert(p, { -- 自动补全相关设置
 				end,
 			},
             sources = cmp.config.sources({
+				{ name = "nvim_lua" }, -- nvim api 的补全.
                 { name = 'nvim_lsp' }, -- 自动补全 lsp 提供的内容.
                 { name = "path" }, -- 自动补全路径.
                 -- { name = "vsnip" }, -- snippets, https://github.com/hrsh7th/vim-vsnip
