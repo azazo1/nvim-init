@@ -97,6 +97,10 @@
 > `Git for windows` 安装在 `C:/Program Files/Git` 目录,
 > 或者手动修改 `lua/lazy_plugins/lsp_related.lua` 中的 git/sh 位置.
 
+## Fitten Code 使用
+
+使用 `:Fitten login` 来登录 Fitten Code.
+
 ## 包含
 
 - 自定义的初始配置.
@@ -119,6 +123,7 @@
   16. [`hrsh7th/nvim-cmp`](https://github.com/hrsh7th/nvim-cmp)
   17. [`Pocco81/auto-save.nvim`](https://github.com/Pocco81/auto-save.nvim)
   18. [`nvim-neo-tree/neo-tree.nvim`](https://github.com/nvim-neo-tree/neo-tree.nvim)
+  19. [`luozhiya/fittencode.nvim`](https://github.com/luozhiya/fittencode.nvim)
 - 额外 lua 脚本:
   1. windows 下退出 `Insert` 模式时自动切换为英文输入法 (高响应速度).
   2. 一些键位: [`keys.lua`](lua/which_key/keys.lua).
@@ -180,5 +185,4 @@
      git config --global author.email "xxx"
      ```
 
-3. nvim-tree 在 linux 下无法定位到当前文件(键位失效), 偶尔出现.
-4. **LuaSnip** 不起作用.
+3. **LuaSnip** 不起作用.

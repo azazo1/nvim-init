@@ -86,8 +86,14 @@ table.insert(p, { -- 底部状态栏.
             lualine_a = {function()
                 return "" -- neovim 的图标, 需要 nerd font.
             end},
+            lualine_c = {
+                'filename',
+                function()
+                    local emoji = {"🚫", "⏸️ ", "⌛️", "⚠️ ", "0️⃣ ", "✅"}
+                    return "🅕: " .. emoji[require("fittencode").get_current_status()]
+                end
+            },
 			lualine_x = {'encoding', 'fileformat', 'filetype', 'require"lsp-status".status()'}
-
         }
     },
     cond = not vim.g.vscode
@@ -235,5 +241,10 @@ table.insert(p, { -- 自动保存.
 		end,
 	},
 	cond = not vim.g.vscode,
+})
+table.insert(p, { -- fitten code AI 自动补全
+    'luozhiya/fittencode.nvim',
+    opts = {},
+    cond = not vim.g.vscode
 })
 return p

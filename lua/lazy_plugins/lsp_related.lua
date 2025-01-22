@@ -129,6 +129,8 @@ table.insert(p, { -- 自动补全相关设置
 				-- { name = 'ultisnips' }, -- For ultisnips users.
 				-- { name = 'snippy' }, -- For snippy users.
             }, {
+				name = 'fittencode'
+			}, {
 				{ name = "buffer" }
 			}),
             mapping = cmp.mapping.preset.insert({
