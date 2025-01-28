@@ -62,6 +62,9 @@
   echo "\"~/.bashrc\" modified, source it then use \"ubuntu\" to open ubuntu operation system."
   ```
 
+  在 termux 中安装 lsp 时, 使用 `:MasonInstall --target=linux_arm64_gnu your-lsp`
+  才能安装, 因为手机的 arm64 架构.
+
 - Linux(Ubutu):
 
   ```bash
