@@ -75,7 +75,7 @@ vim.o.shortmess = vim.o.shortmess .. "c"
 -- 补全显示10行
 vim.o.pumheight = 10
 -- 剪贴板和寄存器绑定
-vim.o.clipboard = "unnamedplus"
+-- vim.o.clipboard = "unnamedplus"
 -- 高亮 yank.
 if not vim.g.vscode then
     -- 实测 vscode-neovim 会报错.

@@ -6,7 +6,7 @@ table.insert(p, { -- 语法高亮.
         local configs = require("nvim-treesitter.configs") -- 这里不直接使用 opts 的原因是这里的模块名和插件的模块名不同.
         configs.setup({
             ensure_installed = {"c", "lua", "vim", "vimdoc", "query", "javascript", "html", "markdown",
-                                "markdown_inline", "rust", "python", "cpp", "json", "toml"},
+                                "markdown_inline", "rust", "python", "cpp", "json", "toml", "typst"},
             sync_install = false,
             highlight = {
                 enable = true

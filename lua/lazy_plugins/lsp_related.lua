@@ -15,7 +15,7 @@ table.insert(p, {
         require("mason").setup()
         require("mason-lspconfig").setup {
             ensure_installed = { -- 确保要安装的 LSP.
-				"lua_ls", "pyright", "rust_analyzer", "texlab"
+				-- "lua_ls", "pyright", "rust_analyzer", "texlab"
 			},
             automatic_installation = true
         }

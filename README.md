@@ -64,6 +64,8 @@
 
   在 termux 中安装 lsp 时, 使用 `:MasonInstall --target=linux_arm64_gnu your-lsp`
   才能安装, 因为手机的 arm64 架构.
+  特殊地:
+  - `tinymist`: 需要额外使用 `pkg install tinymist` 在命令行安装, mason 中安装的会报错.
 
 - Linux(Ubutu):
 
