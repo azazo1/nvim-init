@@ -25,7 +25,9 @@
 
   ```bash
   # 替换清华镜像
-  sed -i 's@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/apt/termux-main stable main@' $PREFIX/etc/apt/sources.list
+  # sed -i 's@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/apt/termux-main stable main@' $PREFIX/etc/apt/sources.list
+  # 这行替换上面那行, 效果更好但是无法放在 bash 文件内
+  termux-change-repo
   apt update && apt upgrade
   # 安装字体
   pkg install wget
