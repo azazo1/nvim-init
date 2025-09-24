@@ -73,6 +73,7 @@ return {
         -- pyright will be automatically installed with mason and loaded with lspconfig
         pyright = {},
       },
+      autoformat = false,
     },
   },
 
@@ -108,6 +109,7 @@ return {
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
       },
+      autoformat = false,
     },
   },
 
@@ -193,5 +195,9 @@ return {
         "flake8",
       },
     },
+  },
+  {
+    "stevearc/conform.nvim",
+    enabled = false
   },
 }
