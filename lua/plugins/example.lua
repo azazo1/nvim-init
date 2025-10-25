@@ -136,8 +136,15 @@ return {
         "typescript",
         "vim",
         "yaml",
+        "rust"
       },
     },
+    branch = "master",
+    lazy = false,
+    build = ":TSUpdate",
+    hightlight = {
+      enable = true
+    }
   },
 
   -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
