@@ -136,15 +136,15 @@ return {
         "typescript",
         "vim",
         "yaml",
-        "rust"
+        "rust",
       },
     },
     branch = "master",
     lazy = false,
     build = ":TSUpdate",
     hightlight = {
-      enable = true
-    }
+      enable = true,
+    },
   },
 
   -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
@@ -203,8 +203,20 @@ return {
       },
     },
   },
+
   {
     "stevearc/conform.nvim",
-    enabled = false
+    enabled = false,
+  },
+
+  {
+    "folke/tokyonight.nvim",
+    opts = {
+      transparent = true,
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+      },
+    },
   },
 }
