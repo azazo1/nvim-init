@@ -89,7 +89,22 @@ table.insert(p, { -- 底部状态栏.
                     return "🅕: " .. emoji[require("fittencode").get_current_status()]
                 end
             },
-			lualine_x = {'encoding', 'fileformat', 'filetype', 'require"lsp-status".status()'}
+			lualine_x = {
+                'encoding',
+                'fileformat',
+                'filetype',
+                function()
+                    local clients = vim.lsp.get_clients({ bufnr = 0 })
+                    if vim.tbl_isempty(clients) then
+                        return ''
+                    end
+                    local names = {}
+                    for _, client in pairs(clients) do
+                        table.insert(names, client.name)
+                    end
+                    return table.concat(names, ' ')
+                end,
+            }
         }
     },
     cond = not vim.g.vscode

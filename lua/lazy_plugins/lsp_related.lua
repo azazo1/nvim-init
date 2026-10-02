@@ -149,13 +149,6 @@ table.insert(p, { -- 自动补全相关设置
     cond = not vim.g.vscode
 })
 table.insert(p, {
-	"nvim-lua/lsp-status.nvim",
-	config = function()
-		require('lsp-status').register_progress()
-	end,
-	cond = not vim.g.vscode
-})
-table.insert(p, {
 	"L3MON4D3/LuaSnip",
 	-- follow latest release.
 	version = "v2.3.0", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
