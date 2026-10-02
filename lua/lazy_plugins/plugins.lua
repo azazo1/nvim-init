@@ -1,19 +1,20 @@
 local p = {}
 table.insert(p, { -- 语法高亮.
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
     build = ":TSUpdate",
     config = function()
-        local configs = require("nvim-treesitter.configs") -- 这里不直接使用 opts 的原因是这里的模块名和插件的模块名不同.
-        configs.setup({
-            ensure_installed = {"c", "lua", "vim", "vimdoc", "query", "javascript", "html", "markdown",
-                                "markdown_inline", "rust", "python", "cpp", "json", "toml", "typst"},
-            sync_install = false,
-            highlight = {
-                enable = true
-            },
-            indent = {
-                enable = true
-            }
+        require("nvim-treesitter").setup()
+        require("nvim-treesitter").install({
+            "c", "lua", "vim", "vimdoc", "query", "javascript", "html", "markdown",
+            "markdown_inline", "rust", "python", "cpp", "json", "toml", "typst",
+        })
+        vim.api.nvim_create_autocmd("FileType", {
+            group = vim.api.nvim_create_augroup("azazo1_treesitter", { clear = true }),
+            callback = function(ev)
+                pcall(vim.treesitter.start, ev.buf)
+                vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end,
         })
     end,
     cond = not vim.g.vscode

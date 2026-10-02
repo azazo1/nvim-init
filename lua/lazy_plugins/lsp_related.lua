@@ -13,42 +13,25 @@ table.insert(p, {
     config = function()
         -- require 的顺序就要这样放.
         require("mason").setup()
+        local capabilities = require('cmp_nvim_lsp').default_capabilities()
+        vim.lsp.config("*", {
+            capabilities = capabilities,
+        })
+        -- 下面是自定义 LSP 配置的设置.
+        vim.lsp.config("lua_ls", {
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = {"vim"}
+                    }
+                }
+            },
+        })
         require("mason-lspconfig").setup {
             ensure_installed = { -- 确保要安装的 LSP.
 				-- "lua_ls", "pyright", "rust_analyzer", "texlab"
 			},
-            automatic_installation = true
-        }
-        require("mason-lspconfig").setup_handlers {
-            -- The first entry (without a key) will be the default handler
-            -- and will be called for each installed server that doesn't have
-            -- a dedicated handler.
-            function(server_name) -- default handler (optional), 默认 LSP 配置设置.
-				local capabilities = require('cmp_nvim_lsp').default_capabilities()
-                require("lspconfig")[server_name].setup {
-					capabilities = capabilities,
-				}
-            end,
-            -- Next, you can provide a dedicated handler for specific servers.
-            -- For example, a handler override for the `rust_analyzer`:
-            -- ["rust_analyzer"] = function()
-            --     require("rust-tools").setup {}
-            -- end
-			-- 下面是自定义 LSP 配置的设置.
-            ["lua_ls"] = function()
-                local lspconfig = require("lspconfig")
-				local capabilities = require('cmp_nvim_lsp').default_capabilities()
-                lspconfig.lua_ls.setup {
-                    settings = {
-                        Lua = {
-                            diagnostics = {
-                                globals = {"vim"}
-                            }
-                        }
-                    },
-					capabilities = capabilities
-                }
-            end
+            automatic_enable = true,
         }
     end,
     cond = not vim.g.vscode
