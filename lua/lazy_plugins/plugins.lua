@@ -61,11 +61,6 @@ table.insert(p, { -- 键位设置与显示.
         return {} -- 懒得摆了, 就放在这把.
     end
 })
-table.insert(p, { -- 计时器.
-    'wakatime/vim-wakatime',
-    lazy = false,
-    cond = not vim.g.vscode
-})
 table.insert(p, { -- 主题.
     "folke/tokyonight.nvim",
     lazy = false,
